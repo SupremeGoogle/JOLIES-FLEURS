@@ -234,8 +234,7 @@ dialog[open] { animation: fade-in 0.3s ease; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  /* Rich dark rose-plum gradient — shows through the transparent areas of bg.png */
-  background: linear-gradient(155deg, #1a080e 0%, #2e1119 45%, #1a0b10 75%, #120608 100%);
+  background: #FDFAF6;
 }
 
 .hero-img {
@@ -247,23 +246,14 @@ dialog[open] { animation: fade-in 0.3s ease; }
   object-position: center top;
 }
 
-/* Dark gradient at top so navbar links (white) are always readable */
-.hero-nav-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 160px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.62) 0%, transparent 100%);
-  z-index: 2;
-  pointer-events: none;
-}
+/* Not needed on light bg — kept as empty placeholder */
+.hero-nav-overlay { display: none; }
 
-/* Subtle central brightening — keeps text readable without darkening flowers */
+/* Light central vignette — brightens center so dark text reads well over flower edges */
 .hero-center-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 90% 65% at 50% 50%, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.45) 100%);
+  background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(253,250,246,0.88) 0%, rgba(253,250,246,0.35) 58%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -284,8 +274,8 @@ dialog[open] { animation: fade-in 0.3s ease; }
   font-size: 0.65rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba(232,160,176,0.80);
-  font-weight: 400;
+  color: #C4956A;
+  font-weight: 500;
   margin-bottom: 16px;
 }
 
@@ -293,32 +283,33 @@ dialog[open] { animation: fade-in 0.3s ease; }
   font-family: var(--font-cormorant, Georgia, serif);
   font-size: clamp(2.8rem, 9vw, 5.8rem);
   font-weight: 300;
-  color: #FDFAF6;
+  color: #2C2420;
   line-height: 1.08;
-  letter-spacing: 0.03em;
+  letter-spacing: -0.01em;
   margin: 0 0 16px;
-  text-shadow: 0 4px 40px rgba(0,0,0,0.40);
+  text-shadow: none;
 }
 
 .hero-divider {
   width: 40px;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(196,149,106,0.85), transparent);
+  background: linear-gradient(to right, transparent, #C4956A, transparent);
   margin: 0 auto 20px;
 }
 
 .hero-tagline {
-  font-size: clamp(0.76rem, 2vw, 0.88rem);
-  color: rgba(253,250,246,0.75);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-cormorant, Georgia, serif);
+  font-size: clamp(1rem, 2.2vw, 1.35rem);
+  color: #6B5048;
+  letter-spacing: 0.02em;
   font-weight: 300;
   margin-bottom: 10px;
 }
 
 .hero-sub {
-  font-size: clamp(0.80rem, 1.8vw, 0.92rem);
-  color: rgba(253,250,246,0.50);
+  font-size: clamp(0.72rem, 1.8vw, 0.82rem);
+  color: #B39280;
+  letter-spacing: 0.08em;
   line-height: 1.75;
   margin-bottom: 36px;
   max-width: 460px;
@@ -342,12 +333,13 @@ dialog[open] { animation: fade-in 0.3s ease; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  opacity: 0.5;
 }
 
 .hero-scroll-line {
   width: 1px;
   height: 44px;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.55), transparent);
+  background: linear-gradient(to bottom, rgba(196,149,106,0.8), transparent);
   animation: fade-in 2.4s ease 1.2s both;
 }
 

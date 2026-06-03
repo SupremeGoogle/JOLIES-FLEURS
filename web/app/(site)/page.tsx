@@ -29,7 +29,7 @@ export default function HomePage() {
       <section className="hero-section">
         {/* Фоновая картинка — на весь экран, медленный zoom */}
         <img
-          src="/bg.png"
+          src="/hero-frame.jpg"
           alt=""
           aria-hidden="true"
           className="hero-bg-zoom hero-img"

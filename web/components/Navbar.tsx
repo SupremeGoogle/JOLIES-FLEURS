@@ -19,10 +19,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // При скролле — белый/ivory фон, ссылки тёмные
-  // Вверху — прозрачный, ссылки белые (т.к. есть тёмный градиент над hero)
-  const linkColor = scrolled ? "#2C2420" : "#fff";
-  const brandColor = scrolled ? "#2C2420" : "#fff";
+  // Hero фон светлый — ссылки всегда тёмные
+  const linkColor = "#2C2420";
+  const brandColor = "#2C2420";
 
   return (
     <header
@@ -41,11 +40,11 @@ export default function Navbar() {
             width={38}
             height={38}
             className="rounded-full object-cover"
-            style={{ border: scrolled ? "2px solid #F2A7B5" : "2px solid rgba(255,255,255,0.6)" }}
+            style={{ border: "2px solid #F2A7B5" }}
           />
           <span
             className="font-heading text-xl font-semibold hidden sm:block transition-colors duration-500"
-            style={{ color: brandColor, fontFamily: "var(--font-cormorant, Georgia, serif)", textShadow: scrolled ? "none" : "0 1px 8px rgba(0,0,0,0.25)" }}
+            style={{ color: brandColor, fontFamily: "var(--font-cormorant, Georgia, serif)" }}
           >
             Jolies Fleurs
           </span>
@@ -61,7 +60,6 @@ export default function Navbar() {
                 style={{
                   color: linkColor,
                   fontFamily: "var(--font-jost, sans-serif)",
-                  textShadow: scrolled ? "none" : "0 1px 6px rgba(0,0,0,0.30)",
                 }}
               >
                 {l.label}
