@@ -91,24 +91,32 @@ export default function CatalogClient({ products }: { products: Product[] }) {
       </div>
 
       {/* Lightbox dialog */}
-      <dialog ref={dialogRef} onClick={(e) => e.target === dialogRef.current && closeDialog()}>
+      <dialog ref={dialogRef} onClick={(e) => e.target === dialogRef.current && closeDialog()}
+        style={{ width: "min(860px, 92vw)" }}>
         {selected && (
           <div
             className="relative flex flex-col md:flex-row rounded-2xl overflow-hidden"
-            style={{ background: "#FDFAF6", maxWidth: "860px", maxHeight: "90vh" }}
+            style={{ background: "#FDFAF6", width: "100%", maxHeight: "90vh" }}
           >
             <button
               onClick={closeDialog}
-              className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold"
-              style={{ background: "rgba(61,43,31,0.2)", color: "#3D2B1F" }}
+              className="absolute top-3 right-3 z-10 w-9 h-9 flex items-center justify-center rounded-full text-lg font-bold"
+              style={{
+                background: "#fff",
+                color: "#3D2B1F",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.18)",
+                border: "1px solid rgba(0,0,0,0.08)",
+                lineHeight: 1,
+              }}
             >
               ×
             </button>
-            <div className="md:w-1/2 max-h-[60vh] md:max-h-[80vh] overflow-hidden">
+            <div className="md:w-1/2 overflow-hidden" style={{ maxHeight: "55vw", minHeight: "200px" }}>
               <img
                 src={selected.image}
                 alt={selected.name}
                 className="w-full h-full object-cover"
+                style={{ maxHeight: "60vh" }}
               />
             </div>
             <div className="md:w-1/2 p-8 flex flex-col justify-between">

@@ -25,105 +25,48 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO — bg.jpg (розы по краям) на весь экран ── */}
-      <section style={{ position: "relative", height: "100svh", minHeight: "600px", overflow: "hidden", background: "#FDFAF6" }}>
-
-        {/* bg.jpg — на весь экран, медленный zoom */}
+      {/* ── HERO ── */}
+      <section className="hero-section">
+        {/* Фоновая картинка — на весь экран, медленный zoom */}
         <img
-          src="/bg-web.jpg"
+          src="/bg.png"
           alt=""
           aria-hidden="true"
-          className="hero-bg-zoom"
+          className="hero-bg-zoom hero-img"
           fetchPriority="high"
-          style={{
-            position: "absolute", inset: 0,
-            width: "100%", height: "100%",
-            objectFit: "cover",
-            objectPosition: "center center",
-            transformOrigin: "center center",
-          }}
         />
 
-        {/* Градиент под навбар — тёмный сверху чтобы ссылки читались */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(44,36,32,0.38) 0%, rgba(44,36,32,0.05) 18%, transparent 35%)",
-          pointerEvents: "none",
-        }} />
+        {/* Тёмный слой СВЕРХУ — специально для навбара */}
+        <div className="hero-nav-overlay" />
 
-        {/* Мягкий центральный свет для текста */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 60% 55% at 50% 52%, rgba(253,250,246,0.82) 0%, rgba(253,250,246,0.45) 50%, transparent 80%)",
-          pointerEvents: "none",
-        }} />
+        {/* Центральный свет — текст читается */}
+        <div className="hero-center-glow" />
 
-        {/* Content — centered, dark text on light */}
-        <div style={{
-          position: "relative", zIndex: 10,
-          height: "100%",
-          display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center",
-          textAlign: "center",
-          padding: "80px 24px 0",
-        }}>
-          {/* Logo с плаванием */}
-          <div className="float-anim" style={{ marginBottom: "22px" }}>
+        {/* Контент */}
+        <div className="hero-content">
+          <div className="float-anim hero-logo-wrap">
             <Image src="/logo.jpg" alt="Jolies Fleurs" width={84} height={84} priority
               style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(232,160,176,0.7)", boxShadow: "0 4px 32px rgba(242,167,181,0.35), 0 0 0 6px rgba(255,255,255,0.60)" }} />
           </div>
 
-          <p style={{
-            fontSize: "0.64rem", letterSpacing: "0.30em", textTransform: "uppercase",
-            color: "#C4956A", fontWeight: 600, marginBottom: "16px",
-          }}>
-            Цветочный бутик · Москва
-          </p>
+          <p className="hero-label">Цветочный бутик · Москва</p>
 
-          <h1 style={{
-            fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(3rem, 8vw, 7rem)",
-            fontWeight: 300, lineHeight: 0.90,
-            color: "#2C2420",
-            letterSpacing: "-0.02em",
-            marginBottom: "20px",
-          }}>
-            {s.shopName}
-          </h1>
+          <h1 className="hero-title">{s.shopName}</h1>
 
-          {/* Gold divider */}
-          <div style={{ width: "52px", height: "1px", background: "linear-gradient(to right, transparent, #C4956A, transparent)", marginBottom: "18px" }} />
+          <div className="hero-divider" />
 
-          <p style={{
-            fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(1rem, 2.2vw, 1.45rem)",
-            fontWeight: 300, color: "#6B5048",
-            letterSpacing: "0.02em", marginBottom: "8px",
-          }}>
-            {s.tagline}
-          </p>
+          <p className="hero-tagline">{s.tagline}</p>
+          <p className="hero-sub">{s.heroSubtitle}</p>
 
-          <p style={{
-            fontSize: "0.72rem", color: "#B39280",
-            letterSpacing: "0.08em", marginBottom: "36px",
-          }}>
-            {s.heroSubtitle}
-          </p>
-
-          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "center" }}>
+          <div className="hero-btns">
             <Link href="/catalog" className="btn-primary">Смотреть каталог</Link>
             <Link href="#order" className="btn-outline">Оставить заявку</Link>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div style={{
-          position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)",
-          display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
-          opacity: 0.45,
-        }}>
-          <span style={{ fontSize: "0.58rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#FDFAF6" }}>Scroll</span>
-          <div style={{ width: "1px", height: "36px", background: "linear-gradient(to bottom, rgba(201,149,106,0.8), transparent)" }} />
+        {/* Scroll hint */}
+        <div className="hero-scroll">
+          <div className="hero-scroll-line" />
         </div>
       </section>
 

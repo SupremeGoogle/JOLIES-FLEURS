@@ -70,14 +70,16 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a
-          href="https://t.me/dddd_nik"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:flex btn-primary text-sm py-2 px-5"
-        >
-          Заказать
-        </a>
+        <div className="hidden md:flex">
+          <a
+            href="https://t.me/dddd_nik"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm py-2 px-5"
+          >
+            Заказать
+          </a>
+        </div>
 
         {/* Mobile burger */}
         <button
@@ -115,14 +117,6 @@ export default function Navbar() {
               {l.label}
             </Link>
           ))}
-          <a
-            href="https://t.me/dddd_nik"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary text-center"
-          >
-            Заказать
-          </a>
         </div>
       </div>
     </header>
