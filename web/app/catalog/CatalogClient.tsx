@@ -102,7 +102,7 @@ export default function CatalogClient({ products }: { products: Product[] }) {
               className="absolute top-3 right-3 z-10 w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold"
               style={{ background: "rgba(61,43,31,0.2)", color: "#3D2B1F" }}
             >
-              ✕
+              ×
             </button>
             <div className="md:w-1/2 max-h-[60vh] md:max-h-[80vh] overflow-hidden">
               <img

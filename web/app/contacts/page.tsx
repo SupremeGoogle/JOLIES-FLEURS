@@ -21,7 +21,7 @@ export default function ContactsPage() {
         {/* Info cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
           <div className="p-6 rounded-2xl text-center" style={{ background: "#FCE8ED" }}>
-            <div className="text-3xl mb-3">📍</div>
+            <div className="w-8 h-px mb-4" style={{background:"#C9A96E"}}/>
             <h3 className="font-semibold mb-3" style={{ color: "#3D2B1F" }}>Адреса</h3>
             <p className="text-sm opacity-70 mb-1" style={{ color: "#3D2B1F" }}>Ленинградский пр-кт, 29к4</p>
             <p className="text-xs opacity-50 mb-3" style={{ color: "#3D2B1F" }}>вход совмещён с магазином табака</p>
@@ -29,7 +29,7 @@ export default function ContactsPage() {
             <p className="text-xs opacity-50" style={{ color: "#3D2B1F" }}>вход совмещён с WB</p>
           </div>
           <div className="p-6 rounded-2xl text-center" style={{ background: "#E8F3E6" }}>
-            <div className="text-3xl mb-3">📞</div>
+            <div className="w-8 h-px mb-4" style={{background:"#C9A96E"}}/>
             <h3 className="font-semibold mb-3" style={{ color: "#3D2B1F" }}>Телефоны</h3>
             <a href="tel:+79853898591" className="block text-sm mb-2 hover:underline" style={{ color: "#3D2B1F" }}>
               +7 (985) 389-85-91
@@ -46,7 +46,7 @@ export default function ContactsPage() {
             </a>
           </div>
           <div className="p-6 rounded-2xl text-center" style={{ background: "#F0E6D3" }}>
-            <div className="text-3xl mb-3">🕐</div>
+            <div className="w-8 h-px mb-4" style={{background:"#C9A96E"}}/>
             <h3 className="font-semibold mb-3" style={{ color: "#3D2B1F" }}>График работы</h3>
             <p className="text-sm opacity-70 mb-1" style={{ color: "#3D2B1F" }}>Ежедневно</p>
             <p className="text-xl font-semibold" style={{ color: "#C9A96E" }}>9:00 – 22:00</p>

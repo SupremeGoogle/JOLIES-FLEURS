@@ -212,8 +212,8 @@ export default function AdminClient({
                             {p.category === "under3k" ? "до 3000" : p.category === "3k-5k" ? "3-5 тыс" : p.category === "5k-7k" ? "5-7 тыс" : "7000+"}
                           </span>
                           <div className="flex gap-2">
-                            <button onClick={() => setEditProduct(p)} className="text-xs opacity-50 hover:opacity-100 transition-opacity">✏️</button>
-                            <button onClick={() => deleteProduct(p.id)} className="text-xs opacity-50 hover:opacity-100 transition-opacity">🗑️</button>
+                            <button onClick={() => setEditProduct(p)} className="text-xs opacity-50 hover:opacity-100 transition-opacity">редакт.</button>
+                            <button onClick={() => deleteProduct(p.id)} className="text-xs opacity-50 hover:opacity-100 transition-opacity">удалить</button>
                           </div>
                         </div>
                       )}
