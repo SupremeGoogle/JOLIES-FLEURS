@@ -43,10 +43,15 @@ export default function HomePage() {
           }}
         />
 
-        {/* Layered overlay — keeps image visible but makes text pop */}
+        {/* Dual overlay: uniform base + radial center darken for text contrast */}
+        <div style={{ position: "absolute", inset: 0, background: "rgba(20,12,8,0.52)" }} />
         <div style={{
           position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(26,15,10,0.25) 0%, rgba(26,15,10,0.20) 40%, rgba(26,15,10,0.55) 80%, rgba(26,15,10,0.72) 100%)",
+          background: "radial-gradient(ellipse 70% 65% at 50% 50%, rgba(20,12,8,0.20) 0%, transparent 100%)",
+        }} />
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to bottom, rgba(20,12,8,0.08) 0%, transparent 30%, transparent 60%, rgba(20,12,8,0.38) 100%)",
         }} />
 
         {/* Content — centered */}
@@ -56,43 +61,53 @@ export default function HomePage() {
           display: "flex", flexDirection: "column",
           alignItems: "center", justifyContent: "center",
           textAlign: "center",
-          padding: "0 24px",
+          padding: "80px 24px 0",
         }}>
           {/* Logo */}
-          <div className="float-anim" style={{ marginBottom: "28px" }}>
-            <Image src="/logo.jpg" alt="Jolies Fleurs" width={80} height={80} priority
-              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.35)", boxShadow: "0 0 32px rgba(232,160,176,0.30)" }} />
+          <div className="float-anim" style={{ marginBottom: "24px" }}>
+            <Image src="/logo.jpg" alt="Jolies Fleurs" width={76} height={76} priority
+              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.50)", boxShadow: "0 4px 24px rgba(0,0,0,0.35)" }} />
           </div>
 
-          <p style={{ fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(201,149,106,0.90)", fontWeight: 500, marginBottom: "20px" }}>
+          <p style={{
+            fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase",
+            color: "#fff", fontWeight: 500, marginBottom: "20px",
+            textShadow: "0 1px 12px rgba(0,0,0,0.8)",
+            opacity: 0.90,
+          }}>
             Цветочный бутик · Москва
           </p>
 
           <h1 style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(3.5rem, 9vw, 8rem)",
+            fontSize: "clamp(3.2rem, 9vw, 7.5rem)",
             fontWeight: 300, lineHeight: 0.92,
             color: "#FDFAF6",
             letterSpacing: "-0.01em",
-            marginBottom: "28px",
-            textShadow: "0 2px 40px rgba(26,15,10,0.40)",
+            marginBottom: "24px",
+            textShadow: "0 2px 20px rgba(0,0,0,0.70), 0 0 60px rgba(0,0,0,0.40)",
           }}>
             {s.shopName}
           </h1>
 
-          {/* Divider */}
-          <div style={{ width: "48px", height: "1px", background: "linear-gradient(to right, transparent, rgba(201,149,106,0.8), transparent)", marginBottom: "24px" }} />
+          {/* Gold divider */}
+          <div style={{ width: "48px", height: "1px", background: "linear-gradient(to right, transparent, rgba(255,220,180,0.9), transparent)", marginBottom: "22px" }} />
 
           <p style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-            fontWeight: 300, color: "rgba(253,250,246,0.85)",
+            fontSize: "clamp(1rem, 2.5vw, 1.45rem)",
+            fontWeight: 300, color: "#fff",
             letterSpacing: "0.02em", marginBottom: "10px",
+            textShadow: "0 1px 16px rgba(0,0,0,0.70)",
           }}>
             {s.tagline}
           </p>
 
-          <p style={{ fontSize: "0.75rem", color: "rgba(253,250,246,0.45)", letterSpacing: "0.1em", marginBottom: "44px" }}>
+          <p style={{
+            fontSize: "0.73rem", color: "rgba(255,255,255,0.70)",
+            letterSpacing: "0.08em", marginBottom: "40px",
+            textShadow: "0 1px 10px rgba(0,0,0,0.60)",
+          }}>
             {s.heroSubtitle}
           </p>
 
