@@ -66,54 +66,77 @@ export default function HomePage() {
   return (
     <>
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: "#100806" }}>
-        {/* BG photo slow zoom */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ background: "#FDFAF6" }}>
+
+        {/* Light floral BG — slow zoom */}
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="/flowers/7550%E2%82%BD.jpg"
+            src="/hero-bg.jpg"
             alt=""
             aria-hidden="true"
             className="hero-bg-zoom w-full h-full object-cover"
-            style={{ opacity: 0.40, transformOrigin: "center center" }}
+            style={{ opacity: 0.72, transformOrigin: "center 40%" }}
           />
         </div>
-        {/* Overlay */}
+
+        {/* Soft ivory veil — keeps text readable */}
         <div className="absolute inset-0 pointer-events-none" style={{
-          background: "linear-gradient(to bottom, rgba(16,8,6,0.30) 0%, rgba(16,8,6,0.45) 50%, rgba(16,8,6,0.70) 100%)"
+          background: "linear-gradient(to bottom, rgba(253,250,246,0.42) 0%, rgba(253,250,246,0.20) 45%, rgba(253,250,246,0.60) 100%)"
         }} />
 
-        {/* Content glass card */}
-        <div className="relative z-10 text-center px-8 py-12 max-w-xl mx-auto mt-16 rounded-3xl glass-dark">
+        {/* Content — light glass card */}
+        <div className="relative z-10 text-center px-10 py-14 max-w-lg mx-auto mt-14 rounded-3xl"
+          style={{
+            background: "rgba(253,250,246,0.55)",
+            backdropFilter: "blur(24px) saturate(160%)",
+            WebkitBackdropFilter: "blur(24px) saturate(160%)",
+            border: "1px solid rgba(255,255,255,0.70)",
+            boxShadow: "0 12px 48px rgba(61,43,31,0.10), inset 0 1px 0 rgba(255,255,255,0.80)",
+          }}>
+
           <div className="float-anim inline-block mb-6">
-            <Image src="/logo.jpg" alt="Jolies Fleurs" width={96} height={96} priority fetchPriority="high"
+            <Image src="/logo.jpg" alt="Jolies Fleurs" width={88} height={88} priority fetchPriority="high"
               className="rounded-full object-cover mx-auto"
-              style={{ border: "2px solid rgba(242,167,181,0.6)", boxShadow: "0 0 32px rgba(242,167,181,0.25)" }} />
+              style={{ border: "2px solid rgba(242,167,181,0.7)", boxShadow: "0 4px 20px rgba(242,167,181,0.30)" }} />
           </div>
 
-          <p className="section-label mb-3" style={{ color: "rgba(201,169,110,0.9)" }}>Цветочный бутик · Москва</p>
+          <p className="section-label mb-3">Цветочный бутик · Москва</p>
 
-          <h1 style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#FDFAF6", lineHeight: 1.05, fontSize: "clamp(2.8rem, 6vw, 5rem)", fontWeight: 300, textShadow: "0 2px 24px rgba(0,0,0,0.3)" }}>
+          <h1 style={{
+            fontFamily: "var(--font-cormorant, Georgia, serif)",
+            color: "#3D2B1F",
+            lineHeight: 1.0,
+            fontSize: "clamp(3rem, 6vw, 5.2rem)",
+            fontWeight: 300,
+          }}>
             Jolies Fleurs
           </h1>
 
           <div className="gold-line my-5" />
 
-          <p style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "rgba(242,167,181,0.95)", fontSize: "1.25rem", fontWeight: 300, letterSpacing: "0.02em" }}>
+          <p style={{
+            fontFamily: "var(--font-cormorant, Georgia, serif)",
+            color: "#7A5C4F",
+            fontSize: "1.2rem",
+            fontWeight: 300,
+            letterSpacing: "0.02em",
+          }}>
             Цветы, которые говорят за вас
           </p>
-          <p className="mt-2 text-sm" style={{ color: "rgba(253,250,246,0.50)", letterSpacing: "0.03em" }}>
+
+          <p className="mt-2 text-xs" style={{ color: "#B39280", letterSpacing: "0.08em" }}>
             Свежие букеты · Авторские композиции · Доставка
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <Link href="/catalog" className="btn-primary">Смотреть каталог</Link>
-            <Link href="#order" className="btn-ghost">Оставить заявку</Link>
+            <Link href="#order" className="btn-outline">Оставить заявку</Link>
           </div>
         </div>
 
         {/* Scroll hint */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style={{ opacity: 0.4 }}>
-          <span className="text-xs tracking-widest uppercase" style={{ color: "#FDFAF6", fontSize: "0.6rem" }}>Scroll</span>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" style={{ opacity: 0.45 }}>
+          <span style={{ color: "#7A5C4F", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>Scroll</span>
           <div className="w-px h-8" style={{ background: "linear-gradient(to bottom, #C9A96E, transparent)" }} />
         </div>
       </section>
