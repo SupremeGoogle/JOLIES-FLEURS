@@ -191,78 +191,82 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── WHY US — Liquid Glass ── */}
-      <section className="py-24 relative overflow-hidden" style={{ background: "#2a1810" }}>
-        {/* BG floral */}
+      {/* ── WHY US + REVIEWS — одна фоновая картинка на оба блока ── */}
+      <div className="relative overflow-hidden" style={{ background: "#1e1008" }}>
+        {/* Единый фон на оба раздела */}
         <div className="absolute inset-0">
-          <img src="/flowers/6280%E2%82%BD.jpg" alt="" aria-hidden="true" className="w-full h-full object-cover" style={{ opacity: 0.22 }} />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(42,24,16,0.7) 0%, rgba(42,24,16,0.4) 100%)" }} />
+          <img src="/flowers/7400%E2%82%BD.jpg" alt="" aria-hidden="true"
+            className="w-full h-full object-cover" style={{ opacity: 0.20 }} />
+          <div className="absolute inset-0" style={{
+            background: "linear-gradient(to bottom, rgba(30,16,8,0.65) 0%, rgba(30,16,8,0.50) 50%, rgba(30,16,8,0.72) 100%)"
+          }} />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6">
-          <div className="text-center mb-14 reveal reveal-fallback">
-            <p className="section-label mb-4" style={{ color: "rgba(201,169,110,0.8)" }}>Почему мы</p>
-            <h2 style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#FDFAF6", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 300 }}>
-              С любовью к каждому букету
-            </h2>
-            <div className="gold-line mt-6" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {features.map((f, i) => (
-              <div key={i} className="glass rounded-2xl p-7 reveal reveal-fallback" style={{ transitionDelay: `${i * 80}ms` }}>
-                <div className="mb-5 opacity-90">{f.icon}</div>
-                <h3 className="font-medium mb-2 text-sm tracking-wide" style={{ color: "#FDFAF6", letterSpacing: "0.05em" }}>{f.title}</h3>
-                <p className="text-xs leading-relaxed" style={{ color: "rgba(253,250,246,0.60)", lineHeight: 1.7 }}>{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── REVIEWS — Liquid Glass ── */}
-      <section className="py-24 relative overflow-hidden" style={{ background: "#1a0e0a" }}>
-        <div className="absolute inset-0">
-          <img src="/flowers/10470%E2%82%BD.jpg" alt="" aria-hidden="true" className="w-full h-full object-cover" style={{ opacity: 0.18 }} />
-          <div className="absolute inset-0" style={{ background: "rgba(26,14,10,0.65)" }} />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6">
-          <div className="text-center mb-14 reveal reveal-fallback">
-            <p className="section-label mb-4" style={{ color: "rgba(201,169,110,0.8)" }}>Отзывы</p>
-            <h2 style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#FDFAF6", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 300 }}>
-              Что говорят клиенты
-            </h2>
-            <div className="gold-line mt-6" />
-          </div>
-
-          <div className="flex gap-5 overflow-x-auto carousel-scroll pb-4">
-            {reviews.map((r, i) => (
-              <div key={i} className="carousel-item flex-none w-72 glass rounded-2xl p-6">
-                <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <svg key={j} width="12" height="12" viewBox="0 0 12 12" fill="#C9A96E">
-                      <path d="M6 1L7.5 4.5H11L8.3 6.8L9.3 10.5L6 8.3L2.7 10.5L3.7 6.8L1 4.5H4.5Z"/>
-                    </svg>
-                  ))}
+        {/* WHY US */}
+        <section className="py-24 relative z-10">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="text-center mb-14 reveal reveal-fallback">
+              <p className="section-label mb-4" style={{ color: "rgba(201,169,110,0.8)" }}>Почему мы</p>
+              <h2 style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#FDFAF6", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 300 }}>
+                С любовью к каждому букету
+              </h2>
+              <div className="gold-line mt-6" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {features.map((f, i) => (
+                <div key={i} className="glass rounded-2xl p-7 reveal reveal-fallback" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <div className="mb-5 opacity-90">{f.icon}</div>
+                  <h3 className="font-medium mb-2 text-sm" style={{ color: "#FDFAF6", letterSpacing: "0.05em" }}>{f.title}</h3>
+                  <p className="text-xs leading-relaxed" style={{ color: "rgba(253,250,246,0.58)", lineHeight: 1.7 }}>{f.desc}</p>
                 </div>
-                <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(253,250,246,0.78)", lineHeight: 1.75 }}>
-                  "{r.text}"
-                </p>
-                <div className="flex items-center justify-between" style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "1rem" }}>
-                  <span className="text-sm font-medium" style={{ color: "#FDFAF6" }}>{r.name}</span>
-                  <span className="text-xs" style={{ color: "rgba(253,250,246,0.35)", fontSize: "0.65rem", letterSpacing: "0.05em" }}>{r.date}</span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+        </section>
+
+        {/* Divider */}
+        <div className="relative z-10 mx-auto max-w-xs">
+          <div style={{ height: "1px", background: "linear-gradient(to right, transparent, rgba(201,169,110,0.3), transparent)" }} />
         </div>
-      </section>
+
+        {/* REVIEWS */}
+        <section className="py-24 relative z-10">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-14 reveal reveal-fallback">
+              <p className="section-label mb-4" style={{ color: "rgba(201,169,110,0.8)" }}>Отзывы</p>
+              <h2 style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#FDFAF6", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 300 }}>
+                Что говорят клиенты
+              </h2>
+              <div className="gold-line mt-6" />
+            </div>
+            <div className="flex gap-5 overflow-x-auto carousel-scroll pb-4">
+              {reviews.map((r, i) => (
+                <div key={i} className="carousel-item flex-none w-72 glass rounded-2xl p-6">
+                  <div className="flex gap-0.5 mb-4">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <svg key={j} width="12" height="12" viewBox="0 0 12 12" fill="#C9A96E">
+                        <path d="M6 1L7.5 4.5H11L8.3 6.8L9.3 10.5L6 8.3L2.7 10.5L3.7 6.8L1 4.5H4.5Z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(253,250,246,0.78)", lineHeight: 1.75 }}>
+                    &ldquo;{r.text}&rdquo;
+                  </p>
+                  <div className="flex items-center justify-between" style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "1rem" }}>
+                    <span className="text-sm font-medium" style={{ color: "#FDFAF6" }}>{r.name}</span>
+                    <span style={{ color: "rgba(253,250,246,0.35)", fontSize: "0.6rem", letterSpacing: "0.05em" }}>{r.date}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
 
       {/* ── ORDER FORM ── */}
       <section id="order" className="py-24 px-6 relative overflow-hidden" style={{ background: "#FDFAF6" }}>
         <div className="absolute inset-0 pointer-events-none" style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(242,167,181,0.12) 0%, transparent 70%)"
+          background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(242,167,181,0.10) 0%, transparent 70%)"
         }} />
         <div className="relative max-w-xl mx-auto">
           <div className="text-center mb-10 reveal reveal-fallback">
@@ -270,8 +274,7 @@ export default function HomePage() {
             <h2 style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#3D2B1F", fontSize: "clamp(2rem,4vw,3rem)", fontWeight: 300 }}>
               Оставить заявку
             </h2>
-            <div className="gold-line mt-5 mb-4" />
-            <p className="text-sm" style={{ color: "#7A5C4F", opacity: 0.7 }}>Ответим в течение 30 минут</p>
+            <div className="gold-line mt-5" />
           </div>
           <ContactForm />
         </div>

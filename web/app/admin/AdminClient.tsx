@@ -69,10 +69,13 @@ export default function AdminClient({
     }
     const priceNum = Number(String(newProduct.priceNum || "0").replace(/\D/g, ""));
     const price = `${priceNum.toLocaleString("ru-RU")} ₽`;
-    let cat = "5k-7k";
-    if (priceNum < 3000) cat = "under3k";
-    else if (priceNum < 5000) cat = "3k-5k";
-    else if (priceNum >= 7000) cat = "over7k";
+    let cat = newProduct.category || "";
+    if (!cat) {
+      if (priceNum < 3000) cat = "under3k";
+      else if (priceNum < 5000) cat = "3k-5k";
+      else if (priceNum >= 7000) cat = "over7k";
+      else cat = "5k-7k";
+    }
     const p: Product = { id, name: newProduct.name || `Букет ${id}`, price, priceNum, category: cat, image, slug: `bouquet-${id}` };
     saveProducts([...products, p]);
     setNewProduct({});
@@ -157,6 +160,18 @@ export default function AdminClient({
                       <label className="block text-xs mb-1 opacity-60">Или URL фото</label>
                       <input className="w-full border rounded-lg px-3 py-2 text-sm" value={newProduct.image || ""} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} placeholder="https://..." />
                     </div>
+                    <div>
+                      <label className="block text-xs mb-1 opacity-60">Категория</label>
+                      <select className="w-full border rounded-lg px-3 py-2 text-sm bg-white"
+                        value={newProduct.category || ""}
+                        onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}>
+                        <option value="">— авто по цене —</option>
+                        <option value="under3k">До 3 000 ₽</option>
+                        <option value="3k-5k">3 000 – 5 000 ₽</option>
+                        <option value="5k-7k">5 000 – 7 000 ₽</option>
+                        <option value="over7k">От 7 000 ₽</option>
+                      </select>
+                    </div>
                   </div>
                   <div className="flex gap-3 mt-4">
                     <button onClick={addProduct} className="btn-primary text-sm py-2 px-4">Добавить</button>
@@ -181,17 +196,29 @@ export default function AdminClient({
                               <input className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.name} onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })} />
                             </div>
                             <div>
-                              <label className="text-xs opacity-60 block mb-1">Цена числом</label>
-                              <input type="number" className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.priceNum} onChange={(e) => {
-                                const n = Number(e.target.value);
-                                let cat = "5k-7k";
-                                if (n < 3000) cat = "under3k";
-                                else if (n < 5000) cat = "3k-5k";
-                                else if (n >= 7000) cat = "over7k";
-                                setEditProduct({ ...editProduct, priceNum: n, price: `${n.toLocaleString("ru-RU")} ₽`, category: cat });
-                              }} />
+                              <label className="text-xs opacity-60 block mb-1">Цена (₽)</label>
+                              <input type="number" className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.priceNum}
+                                onChange={(e) => {
+                                  const n = Number(e.target.value);
+                                  setEditProduct({ ...editProduct, priceNum: n, price: `${n.toLocaleString("ru-RU")} ₽` });
+                                }} />
                             </div>
-                            <div className="col-span-2">
+                            <div>
+                              <label className="text-xs opacity-60 block mb-1">Категория</label>
+                              <select className="w-full border rounded px-2 py-1.5 text-sm bg-white" value={editProduct.category}
+                                onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}>
+                                <option value="under3k">До 3 000 ₽</option>
+                                <option value="3k-5k">3 000 – 5 000 ₽</option>
+                                <option value="5k-7k">5 000 – 7 000 ₽</option>
+                                <option value="over7k">От 7 000 ₽</option>
+                                <option value="custom">Своя категория...</option>
+                              </select>
+                              {editProduct.category === "custom" && (
+                                <input className="w-full border rounded px-2 py-1.5 text-sm mt-1" placeholder="Название категории"
+                                  onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })} />
+                              )}
+                            </div>
+                            <div>
                               <label className="text-xs opacity-60 block mb-1">URL изображения</label>
                               <input className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.image} onChange={(e) => setEditProduct({ ...editProduct, image: e.target.value })} />
                             </div>
