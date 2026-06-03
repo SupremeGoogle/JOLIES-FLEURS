@@ -25,12 +25,12 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO — белый фон с цветочной рамкой + плавное приближение ── */}
+      {/* ── HERO — bg.jpg (розы по краям) на весь экран ── */}
       <section style={{ position: "relative", height: "100svh", minHeight: "600px", overflow: "hidden", background: "#FDFAF6" }}>
 
-        {/* Flower frame — slow zoom */}
+        {/* bg.jpg — slow Ken Burns zoom, contain чтобы рамка была видна целиком */}
         <img
-          src="/hero-frame.jpg"
+          src="/bg-web.jpg"
           alt=""
           aria-hidden="true"
           className="hero-bg-zoom"
@@ -38,18 +38,21 @@ export default function HomePage() {
           style={{
             position: "absolute", inset: 0,
             width: "100%", height: "100%",
-            objectFit: "cover", objectPosition: "center center",
+            objectFit: "contain",
+            objectPosition: "center center",
             transformOrigin: "center center",
+            background: "#FDFAF6",
           }}
         />
 
-        {/* Лёгкий центральный вил — чтобы текст чётче читался на белом */}
+        {/* Мягкий центральный свет — выделяет зону текста */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(253,250,246,0.82) 0%, rgba(253,250,246,0.30) 60%, transparent 100%)",
+          background: "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(253,250,246,0.88) 0%, rgba(253,250,246,0.60) 45%, rgba(253,250,246,0.10) 75%, transparent 100%)",
+          pointerEvents: "none",
         }} />
 
-        {/* Content — centered */}
+        {/* Content — centered, dark text on light */}
         <div style={{
           position: "relative", zIndex: 10,
           height: "100%",
@@ -58,15 +61,15 @@ export default function HomePage() {
           textAlign: "center",
           padding: "80px 24px 0",
         }}>
-          {/* Logo */}
-          <div className="float-anim" style={{ marginBottom: "20px" }}>
-            <Image src="/logo.jpg" alt="Jolies Fleurs" width={80} height={80} priority
-              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(232,160,176,0.6)", boxShadow: "0 4px 24px rgba(44,36,32,0.15)" }} />
+          {/* Logo с плаванием */}
+          <div className="float-anim" style={{ marginBottom: "22px" }}>
+            <Image src="/logo.jpg" alt="Jolies Fleurs" width={84} height={84} priority
+              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(232,160,176,0.7)", boxShadow: "0 4px 32px rgba(242,167,181,0.35), 0 0 0 6px rgba(255,255,255,0.60)" }} />
           </div>
 
           <p style={{
-            fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase",
-            color: "#C4956A", fontWeight: 500, marginBottom: "18px",
+            fontSize: "0.64rem", letterSpacing: "0.30em", textTransform: "uppercase",
+            color: "#C4956A", fontWeight: 600, marginBottom: "16px",
           }}>
             Цветочный бутик · Москва
           </p>
@@ -74,20 +77,20 @@ export default function HomePage() {
           <h1 style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
             fontSize: "clamp(3rem, 8vw, 7rem)",
-            fontWeight: 300, lineHeight: 0.92,
+            fontWeight: 300, lineHeight: 0.90,
             color: "#2C2420",
             letterSpacing: "-0.02em",
-            marginBottom: "22px",
+            marginBottom: "20px",
           }}>
             {s.shopName}
           </h1>
 
           {/* Gold divider */}
-          <div style={{ width: "48px", height: "1px", background: "linear-gradient(to right, transparent, #C4956A, transparent)", marginBottom: "20px" }} />
+          <div style={{ width: "52px", height: "1px", background: "linear-gradient(to right, transparent, #C4956A, transparent)", marginBottom: "18px" }} />
 
           <p style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(1rem, 2.2vw, 1.4rem)",
+            fontSize: "clamp(1rem, 2.2vw, 1.45rem)",
             fontWeight: 300, color: "#6B5048",
             letterSpacing: "0.02em", marginBottom: "8px",
           }}>

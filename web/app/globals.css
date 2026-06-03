@@ -43,8 +43,13 @@ body {
   50%       { transform: translateY(-12px) rotate(1deg); }
 }
 @keyframes slow-zoom {
-  from { transform: scale(1); }
-  to   { transform: scale(1.10); }
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.12); }
+}
+/* For flower frame — zoom in so roses slowly surround the text */
+.hero-bg-zoom {
+  animation: slow-zoom 18s ease-in-out infinite alternate;
+  will-change: transform;
 }
 @keyframes blob-drift {
   0%, 100% { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; transform: translate(0,0) scale(1); }
