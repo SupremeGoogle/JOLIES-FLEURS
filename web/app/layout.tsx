@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import RevealInit from "@/components/RevealInit";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -30,9 +27,7 @@ export const metadata: Metadata = {
       { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
-    other: [
-      { rel: "manifest", url: "/site.webmanifest" },
-    ],
+    other: [{ rel: "manifest", url: "/site.webmanifest" }],
   },
 };
 
@@ -41,12 +36,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ru" className={`${cormorant.variable} ${jost.variable}`}>
-      <body className="min-h-screen flex flex-col" style={{ background: "#FDFAF6" }}>
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <RevealInit />
-      </body>
+      <body style={{ background: "#FDFAF6" }}>{children}</body>
     </html>
   );
 }

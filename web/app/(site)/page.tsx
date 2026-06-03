@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/lib/data";
-import ContactForm from "@/app/contacts/ContactForm";
+import ContactForm from "@/app/(site)/contacts/ContactForm";
 
 const features = [
   {
