@@ -7,6 +7,35 @@ import ImageUploader from "@/components/ImageUploader";
 
 type Tab = "products" | "settings" | "submissions";
 
+// Admin-specific button styles — not using site's .btn-primary
+const ABtnPrimary: React.CSSProperties = {
+  display: "inline-flex", alignItems: "center", justifyContent: "center",
+  background: "#F2A7B5", color: "#3D2B1F", border: "none", borderRadius: "10px",
+  padding: "8px 18px", fontSize: "14px", fontWeight: 600, cursor: "pointer",
+  transition: "background 0.15s",
+};
+const ABtnOutline: React.CSSProperties = {
+  display: "inline-flex", alignItems: "center", justifyContent: "center",
+  background: "transparent", color: "#7A5C4F", border: "1px solid #e5e7eb",
+  borderRadius: "10px", padding: "8px 18px", fontSize: "14px", fontWeight: 500, cursor: "pointer",
+};
+const ABtnDanger: React.CSSProperties = {
+  background: "transparent", color: "#ef4444", border: "none",
+  fontSize: "13px", cursor: "pointer", padding: "4px 8px", borderRadius: "6px",
+};
+const ABtnEdit: React.CSSProperties = {
+  background: "transparent", color: "#6b7280", border: "none",
+  fontSize: "13px", cursor: "pointer", padding: "4px 8px", borderRadius: "6px",
+};
+
+const FIELD = "w-full border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300 transition-colors";
+const CAT_LABELS: Record<string, string> = {
+  "under3k": "до 3 000",
+  "3k-5k": "3–5 тыс",
+  "5k-7k": "5–7 тыс",
+  "over7k": "7 000+",
+};
+
 export default function AdminClient({
   products: initialProducts,
   settings: initialSettings,
@@ -35,7 +64,7 @@ export default function AdminClient({
     setSaving(true);
     await fetch("/api/admin/products", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(updated) });
     setSaving(false);
-    showSaved("✅ Сохранено! Сайт обновится через ~1 минуту.");
+    showSaved("Сохранено! Сайт обновится через ~1 минуту.");
     setProducts(updated);
   };
 
@@ -43,7 +72,7 @@ export default function AdminClient({
     setSaving(true);
     await fetch("/api/admin/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(settings) });
     setSaving(false);
-    showSaved("✅ Сохранено! Сайт обновится через ~1 минуту.");
+    showSaved("Настройки сохранены! Сайт обновится через ~1 минуту.");
   };
 
   const deleteProduct = (id: number) => {
@@ -52,12 +81,11 @@ export default function AdminClient({
   };
 
   const updateProduct = (p: Product) => {
-    const updated = products.map((x) => (x.id === p.id ? p : x));
-    saveProducts(updated);
+    saveProducts(products.map((x) => (x.id === p.id ? p : x)));
     setEditProduct(null);
   };
 
-  const addProduct = async () => {
+  const addProduct = () => {
     const id = Math.max(0, ...products.map((p) => p.id)) + 1;
     const image = newProduct.image || "";
     const priceNum = Number(String(newProduct.priceNum || "0").replace(/\D/g, ""));
@@ -81,91 +109,83 @@ export default function AdminClient({
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "#F5F5F5" }}>
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
-        <div className="flex items-center gap-3">
-          <Image src="/logo.jpg" alt="logo" width={36} height={36} className="rounded-full object-cover" />
-          <span className="font-semibold text-sm" style={{ color: "#3D2B1F" }}>Jolies Fleurs Admin</span>
+    <div style={{ minHeight: "100vh", background: "#F7F7F8", fontFamily: "system-ui, sans-serif" }}>
+
+      {/* ── Top bar ── */}
+      <div style={{ background: "#fff", borderBottom: "1px solid #f0f0f0", padding: "0 24px", height: "60px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 50 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <Image src="/logo.jpg" alt="logo" width={34} height={34} style={{ borderRadius: "50%", objectFit: "cover" }} />
+          <span style={{ fontWeight: 600, fontSize: "15px", color: "#1a1a1a" }}>Jolies Fleurs</span>
+          <span style={{ fontSize: "13px", color: "#9ca3af", fontWeight: 400 }}>· Панель управления</span>
         </div>
-        <div className="flex items-center gap-4">
-          {saved && <span className="text-xs text-green-600">{saved}</span>}
-          {saving && <span className="text-xs opacity-50">Сохранение...</span>}
-          <a href="/" target="_blank" className="text-xs opacity-50 hover:opacity-80 transition-opacity">Открыть сайт</a>
-          <button onClick={logout} className="text-xs px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors" style={{ color: "#3D2B1F" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          {saved && (
+            <span style={{ fontSize: "13px", color: "#16a34a", background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px", padding: "4px 12px" }}>
+              {saved}
+            </span>
+          )}
+          {saving && <span style={{ fontSize: "13px", color: "#9ca3af" }}>Сохранение…</span>}
+          <a href="/" target="_blank" style={{ fontSize: "13px", color: "#9ca3af", textDecoration: "none" }}>↗ Сайт</a>
+          <button onClick={logout}
+            style={{ fontSize: "13px", color: "#6b7280", background: "#f3f4f6", border: "none", borderRadius: "8px", padding: "6px 14px", cursor: "pointer" }}>
             Выйти
           </button>
         </div>
       </div>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <div className="w-48 min-h-screen bg-white border-r border-gray-100 pt-6">
+      <div style={{ display: "flex", minHeight: "calc(100vh - 60px)" }}>
+
+        {/* ── Sidebar ── */}
+        <div style={{ width: "200px", background: "#fff", borderRight: "1px solid #f0f0f0", padding: "16px 0", flexShrink: 0 }}>
           {(["products", "settings", "submissions"] as Tab[]).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className="w-full text-left px-5 py-3 text-sm transition-colors"
+            <button key={t} onClick={() => setTab(t)}
               style={{
-                color: tab === t ? "#3D2B1F" : "#7A5C4F",
-                background: tab === t ? "#FCE8ED" : "transparent",
+                display: "block", width: "100%", textAlign: "left",
+                padding: "10px 20px", fontSize: "14px", border: "none", cursor: "pointer",
+                color: tab === t ? "#1a1a1a" : "#6b7280",
+                background: tab === t ? "#FFF0F3" : "transparent",
                 fontWeight: tab === t ? 600 : 400,
                 borderLeft: tab === t ? "3px solid #F2A7B5" : "3px solid transparent",
-              }}
-            >
+                transition: "all 0.15s",
+              }}>
               {t === "products" ? "Товары" : t === "settings" ? "Настройки" : "Заявки"}
             </button>
           ))}
         </div>
 
-        {/* Main */}
-        <div className="flex-1 p-8 overflow-auto">
-          {/* PRODUCTS TAB */}
+        {/* ── Main content ── */}
+        <div style={{ flex: 1, padding: "32px", overflowAuto: "scroll" } as React.CSSProperties}>
+
+          {/* PRODUCTS */}
           {tab === "products" && (
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold" style={{ color: "#3D2B1F" }}>
-                  Товары ({products.length})
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "24px" }}>
+                <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a" }}>
+                  Товары <span style={{ color: "#9ca3af", fontWeight: 400 }}>({products.length})</span>
                 </h2>
-                <button onClick={() => setAddMode(true)} className="btn-primary text-sm py-2 px-4">
-                  + Добавить
-                </button>
+                <button onClick={() => setAddMode(true)} style={ABtnPrimary}>+ Добавить товар</button>
               </div>
 
               {/* Add form */}
               {addMode && (
-                <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
-                  <h3 className="font-semibold mb-4" style={{ color: "#3D2B1F" }}>Новый товар</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div className="md:col-span-2">
-                      <label className="block text-xs mb-2 font-medium opacity-70">Фотография товара</label>
-                      <ImageUploader
-                        value={newProduct.image || ""}
-                        onChange={(url) => setNewProduct({ ...newProduct, image: url })}
-                      />
+                <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", marginBottom: "24px", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
+                  <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#1a1a1a", marginBottom: "20px" }}>Новый товар</h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
+                    <div style={{ gridColumn: "1 / -1" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "8px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Фото товара</label>
+                      <ImageUploader value={newProduct.image || ""} onChange={(url) => setNewProduct({ ...newProduct, image: url })} />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1.5 font-medium opacity-70">Название</label>
-                      <input className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
-                        value={newProduct.name || ""}
-                        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
-                        placeholder="Букет из роз"
-                        style={{ borderColor: "rgba(201,169,110,0.3)" }} />
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Название</label>
+                      <input className={FIELD} value={newProduct.name || ""} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} placeholder="Букет из роз" />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1.5 font-medium opacity-70">Цена (₽)</label>
-                      <input className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
-                        type="number" value={newProduct.priceNum || ""}
-                        onChange={(e) => setNewProduct({ ...newProduct, priceNum: Number(e.target.value) })}
-                        placeholder="3500"
-                        style={{ borderColor: "rgba(201,169,110,0.3)" }} />
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Цена, ₽</label>
+                      <input className={FIELD} type="number" value={newProduct.priceNum || ""} onChange={(e) => setNewProduct({ ...newProduct, priceNum: Number(e.target.value) })} placeholder="3500" />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1.5 font-medium opacity-70">Категория</label>
-                      <select className="w-full border rounded-lg px-3 py-2 text-sm bg-white outline-none"
-                        value={newProduct.category || ""}
-                        onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-                        style={{ borderColor: "rgba(201,169,110,0.3)" }}>
+                      <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>Категория</label>
+                      <select className={FIELD} value={newProduct.category || ""} onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}>
                         <option value="">— авто по цене —</option>
                         <option value="under3k">До 3 000 ₽</option>
                         <option value="3k-5k">3 000 – 5 000 ₽</option>
@@ -174,98 +194,92 @@ export default function AdminClient({
                       </select>
                     </div>
                   </div>
-                  <div className="flex gap-3 mt-4">
-                    <button onClick={addProduct} className="btn-primary text-sm py-2 px-4">Добавить</button>
-                    <button onClick={() => { setAddMode(false); setNewProduct({}); }} className="btn-outline text-sm py-2 px-4">Отмена</button>
+                  <div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+                    <button onClick={addProduct} style={ABtnPrimary}>Добавить</button>
+                    <button onClick={() => { setAddMode(false); setNewProduct({}); }} style={ABtnOutline}>Отмена</button>
                   </div>
                 </div>
               )}
 
-              {/* Products table */}
-              <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                <div className="grid grid-cols-[60px_1fr_100px_120px_80px] gap-0 text-xs font-semibold py-3 px-4 border-b bg-gray-50" style={{ color: "#7A5C4F" }}>
+              {/* Table */}
+              <div style={{ background: "#fff", borderRadius: "16px", overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
+                {/* Header */}
+                <div style={{ display: "grid", gridTemplateColumns: "68px 1fr 110px 120px 100px", padding: "12px 16px", background: "#fafafa", borderBottom: "1px solid #f0f0f0", fontSize: "12px", fontWeight: 600, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.05em" }}>
                   <span>Фото</span><span>Название</span><span>Цена</span><span>Категория</span><span>Действия</span>
                 </div>
-                <div className="divide-y">
-                  {products.map((p) => (
-                    <div key={p.id}>
-                      {editProduct?.id === p.id ? (
-                        <div className="p-5 bg-rose-50 rounded-xl">
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            {/* Image uploader — full width */}
-                            <div className="md:col-span-2">
-                              <label className="text-xs font-medium opacity-70 block mb-2">Фотография</label>
-                              <ImageUploader
-                                value={editProduct.image}
-                                onChange={(url) => setEditProduct({ ...editProduct, image: url })}
-                              />
-                            </div>
-                            <div>
-                              <label className="text-xs opacity-60 block mb-1">Название</label>
-                              <input className="w-full border rounded-lg px-2 py-1.5 text-sm outline-none"
-                                value={editProduct.name}
-                                onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })} />
-                            </div>
-                            <div>
-                              <label className="text-xs opacity-60 block mb-1">Цена (₽)</label>
-                              <input type="number" className="w-full border rounded-lg px-2 py-1.5 text-sm outline-none"
-                                value={editProduct.priceNum}
-                                onChange={(e) => {
-                                  const n = Number(e.target.value);
-                                  setEditProduct({ ...editProduct, priceNum: n, price: `${n.toLocaleString("ru-RU")} ₽` });
-                                }} />
-                            </div>
-                            <div>
-                              <label className="text-xs opacity-60 block mb-1">Категория</label>
-                              <select className="w-full border rounded-lg px-2 py-1.5 text-sm bg-white outline-none"
-                                value={editProduct.category}
-                                onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}>
-                                <option value="under3k">До 3 000 ₽</option>
-                                <option value="3k-5k">3 000 – 5 000 ₽</option>
-                                <option value="5k-7k">5 000 – 7 000 ₽</option>
-                                <option value="over7k">От 7 000 ₽</option>
-                                <option value="custom">Своя категория...</option>
-                              </select>
-                              {editProduct.category === "custom" && (
-                                <input className="w-full border rounded-lg px-2 py-1.5 text-sm mt-1 outline-none"
-                                  placeholder="Название категории"
-                                  onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })} />
-                              )}
-                            </div>
+
+                {products.map((p) => (
+                  <div key={p.id}>
+                    {editProduct?.id === p.id ? (
+                      /* Edit row */
+                      <div style={{ padding: "20px", background: "#fffbff", borderBottom: "1px solid #f0f0f0" }}>
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginBottom: "16px" }}>
+                          <div style={{ gridColumn: "1 / -1" }}>
+                            <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "8px" }}>Фото</label>
+                            <ImageUploader value={editProduct.image} onChange={(url) => setEditProduct({ ...editProduct, image: url })} />
                           </div>
-                          <div className="flex gap-2">
-                            <button onClick={() => updateProduct(editProduct)} className="btn-primary text-xs py-1.5 px-3">Сохранить</button>
-                            <button onClick={() => setEditProduct(null)} className="btn-outline text-xs py-1.5 px-3">Отмена</button>
+                          <div>
+                            <label style={{ display: "block", fontSize: "12px", color: "#6b7280", marginBottom: "5px" }}>Название</label>
+                            <input className={FIELD} value={editProduct.name} onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })} />
+                          </div>
+                          <div>
+                            <label style={{ display: "block", fontSize: "12px", color: "#6b7280", marginBottom: "5px" }}>Цена, ₽</label>
+                            <input className={FIELD} type="number" value={editProduct.priceNum}
+                              onChange={(e) => {
+                                const n = Number(e.target.value);
+                                setEditProduct({ ...editProduct, priceNum: n, price: `${n.toLocaleString("ru-RU")} ₽` });
+                              }} />
+                          </div>
+                          <div>
+                            <label style={{ display: "block", fontSize: "12px", color: "#6b7280", marginBottom: "5px" }}>Категория</label>
+                            <select className={FIELD} value={editProduct.category} onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}>
+                              <option value="under3k">До 3 000 ₽</option>
+                              <option value="3k-5k">3 000 – 5 000 ₽</option>
+                              <option value="5k-7k">5 000 – 7 000 ₽</option>
+                              <option value="over7k">От 7 000 ₽</option>
+                              <option value="custom">Своя…</option>
+                            </select>
+                            {editProduct.category === "custom" && (
+                              <input className={FIELD} style={{ marginTop: "6px" }} placeholder="Название категории"
+                                onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })} />
+                            )}
                           </div>
                         </div>
-                      ) : (
-                        <div className="grid grid-cols-[60px_1fr_100px_120px_80px] gap-0 items-center py-3 px-4 hover:bg-gray-50 transition-colors">
-                          <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100">
-                            <img src={p.image} alt="" className="w-full h-full object-cover" />
-                          </div>
-                          <span className="text-sm px-2 truncate" style={{ color: "#3D2B1F" }}>{p.name}</span>
-                          <span className="text-sm font-semibold" style={{ color: "#C9A96E" }}>{p.price}</span>
-                          <span className="text-xs px-2 py-1 rounded-full inline-block" style={{ background: "#FCE8ED", color: "#7A5C4F" }}>
-                            {p.category === "under3k" ? "до 3000" : p.category === "3k-5k" ? "3-5 тыс" : p.category === "5k-7k" ? "5-7 тыс" : "7000+"}
-                          </span>
-                          <div className="flex gap-2">
-                            <button onClick={() => setEditProduct(p)} className="text-xs opacity-50 hover:opacity-100 transition-opacity">редакт.</button>
-                            <button onClick={() => deleteProduct(p.id)} className="text-xs opacity-50 hover:opacity-100 transition-opacity">удалить</button>
-                          </div>
+                        <div style={{ display: "flex", gap: "8px" }}>
+                          <button onClick={() => updateProduct(editProduct)} style={ABtnPrimary}>Сохранить</button>
+                          <button onClick={() => setEditProduct(null)} style={ABtnOutline}>Отмена</button>
                         </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                      </div>
+                    ) : (
+                      /* Normal row */
+                      <div style={{ display: "grid", gridTemplateColumns: "68px 1fr 110px 120px 100px", alignItems: "center", padding: "10px 16px", borderBottom: "1px solid #f9f9f9" }}
+                        onMouseEnter={(e) => (e.currentTarget.style.background = "#fafafa")}
+                        onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
+                        <div style={{ width: "48px", height: "48px", borderRadius: "10px", overflow: "hidden", background: "#f3f4f6" }}>
+                          {p.image && <img src={p.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />}
+                        </div>
+                        <span style={{ fontSize: "14px", color: "#1a1a1a", paddingLeft: "12px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span>
+                        <span style={{ fontSize: "14px", fontWeight: 600, color: "#C9A96E" }}>{p.price}</span>
+                        <span style={{ display: "inline-block", fontSize: "12px", padding: "3px 10px", borderRadius: "20px", background: "#FFF0F3", color: "#c97889" }}>
+                          {CAT_LABELS[p.category] || p.category}
+                        </span>
+                        <div style={{ display: "flex", gap: "4px" }}>
+                          <button onClick={() => setEditProduct(p)} style={ABtnEdit}>Изменить</button>
+                          <button onClick={() => deleteProduct(p.id)} style={ABtnDanger}>Удалить</button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           )}
 
-          {/* SETTINGS TAB */}
+          {/* SETTINGS */}
           {tab === "settings" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6" style={{ color: "#3D2B1F" }}>Настройки сайта</h2>
-              <div className="bg-white rounded-2xl p-6 shadow-sm space-y-4 max-w-2xl">
+              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "24px" }}>Настройки сайта</h2>
+              <div style={{ background: "#fff", borderRadius: "16px", padding: "28px", maxWidth: "600px", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
                 {([
                   ["shopName", "Название магазина"],
                   ["tagline", "Слоган"],
@@ -277,53 +291,48 @@ export default function AdminClient({
                   ["telegram", "Telegram"],
                   ["delivery", "Доставка"],
                 ] as [keyof Settings, string][]).map(([key, label]) => (
-                  <div key={key}>
-                    <label className="block text-xs font-medium mb-1.5 opacity-60" style={{ color: "#3D2B1F" }}>{label}</label>
-                    <input
-                      className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-rose-300 transition-colors"
+                  <div key={key} style={{ marginBottom: "16px" }}>
+                    <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</label>
+                    <input className={FIELD}
                       value={settings[key]}
                       onChange={(e) => setSettings({ ...settings, [key]: e.target.value })}
-                      style={{ color: "#3D2B1F" }}
-                    />
+                      style={{ color: "#1a1a1a" }} />
                   </div>
                 ))}
-                <button onClick={saveSettings} className="btn-primary mt-2">Сохранить настройки</button>
+                <button onClick={saveSettings} style={{ ...ABtnPrimary, marginTop: "8px", padding: "10px 24px", fontSize: "15px" }}>
+                  Сохранить настройки
+                </button>
               </div>
             </div>
           )}
 
-          {/* SUBMISSIONS TAB */}
+          {/* SUBMISSIONS */}
           {tab === "submissions" && (
             <div>
-              <h2 className="text-xl font-semibold mb-6" style={{ color: "#3D2B1F" }}>
-                Заявки ({submissions.length})
+              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "24px" }}>
+                Заявки <span style={{ color: "#9ca3af", fontWeight: 400 }}>({submissions.length})</span>
               </h2>
               {submissions.length === 0 ? (
-                <div className="bg-white rounded-2xl p-12 text-center opacity-40 text-sm" style={{ color: "#3D2B1F" }}>
+                <div style={{ background: "#fff", borderRadius: "16px", padding: "60px", textAlign: "center", color: "#9ca3af", fontSize: "14px" }}>
                   Заявок пока нет
                 </div>
               ) : (
-                <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                  <div className="divide-y">
-                    {submissions.map((s) => (
-                      <div key={s.id} className="p-4 hover:bg-gray-50 transition-colors">
-                        <div className="flex items-start justify-between mb-1">
-                          <span className="font-semibold text-sm" style={{ color: "#3D2B1F" }}>{s.name}</span>
-                          <span className="text-xs opacity-40" style={{ color: "#3D2B1F" }}>
-                            {new Date(s.timestamp).toLocaleString("ru-RU")}
-                          </span>
-                        </div>
-                        <a href={`tel:${s.phone}`} className="text-sm" style={{ color: "#C9A96E" }}>{s.phone}</a>
-                        {s.message && (
-                          <p className="text-sm opacity-60 mt-1 leading-relaxed" style={{ color: "#3D2B1F" }}>{s.message}</p>
-                        )}
+                <div style={{ background: "#fff", borderRadius: "16px", overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
+                  {submissions.map((s, i) => (
+                    <div key={s.id} style={{ padding: "16px 20px", borderBottom: i < submissions.length - 1 ? "1px solid #f3f4f6" : "none" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
+                        <span style={{ fontSize: "14px", fontWeight: 600, color: "#1a1a1a" }}>{s.name}</span>
+                        <span style={{ fontSize: "12px", color: "#9ca3af" }}>{new Date(s.timestamp).toLocaleString("ru-RU")}</span>
                       </div>
-                    ))}
-                  </div>
+                      <a href={`tel:${s.phone}`} style={{ fontSize: "14px", color: "#C9A96E", textDecoration: "none" }}>{s.phone}</a>
+                      {s.message && <p style={{ fontSize: "13px", color: "#6b7280", marginTop: "6px", lineHeight: 1.5 }}>{s.message}</p>}
+                    </div>
+                  ))}
                 </div>
               )}
             </div>
           )}
+
         </div>
       </div>
     </div>
