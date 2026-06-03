@@ -40,7 +40,7 @@ export default function Navbar() {
           />
           <span
             className="font-heading text-xl font-semibold hidden sm:block"
-            style={{ color: "#3D2B1F", fontFamily: "var(--font-cormorant, Georgia, serif)" }}
+            style={{ color: "#2C2420", fontFamily: "var(--font-cormorant, Georgia, serif)" }}
           >
             Jolies Fleurs
           </span>
@@ -53,7 +53,7 @@ export default function Navbar() {
               <Link
                 href={l.href}
                 className="text-sm font-medium transition-colors hover:text-rose-400"
-                style={{ color: "#3D2B1F", fontFamily: "var(--font-jost, sans-serif)" }}
+                style={{ color: "#2C2420", fontFamily: "var(--font-jost, sans-serif)" }}
               >
                 {l.label}
               </Link>
