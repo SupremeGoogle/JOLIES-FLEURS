@@ -349,5 +349,14 @@
     "category": "over7k",
     "image": "/flowers/7550₽.jpg",
     "slug": "bouquet-39"
+  },
+  {
+    "id": 40,
+    "name": "wsfasdf",
+    "price": "12 345 ₽",
+    "priceNum": 12345,
+    "category": "under3k",
+    "image": "",
+    "slug": "bouquet-40"
   }
 ]
