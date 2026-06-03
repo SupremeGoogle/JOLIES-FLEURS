@@ -25,75 +25,91 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO — split layout ── */}
-      <section style={{ minHeight: "100svh", display: "grid", gridTemplateColumns: "1fr 1fr", background: "#FDFAF6" }}
-        className="max-lg:flex max-lg:flex-col">
+      {/* ── HERO — full-screen bg + slow zoom ── */}
+      <section style={{ position: "relative", height: "100svh", minHeight: "600px", overflow: "hidden", background: "#1a0f0a" }}>
 
-        {/* Left — sharp flower photo */}
-        <div style={{ position: "relative", overflow: "hidden", minHeight: "60vw" }} className="lg:min-h-screen">
-          <img
-            src="/hero-split.jpg"
-            alt="Jolies Fleurs"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
-            fetchPriority="high"
-          />
-          {/* Subtle right-side gradient for blend */}
-          <div style={{
+        {/* Photo — slow Ken Burns zoom */}
+        <img
+          src="/hero-bg.jpg"
+          alt=""
+          aria-hidden="true"
+          className="hero-bg-zoom"
+          fetchPriority="high"
+          style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(to right, transparent 70%, rgba(253,250,246,0.6) 100%)"
-          }} />
-        </div>
+            width: "100%", height: "100%",
+            objectFit: "cover", objectPosition: "center center",
+            transformOrigin: "center center",
+          }}
+        />
 
-        {/* Right — brand identity */}
+        {/* Layered overlay — keeps image visible but makes text pop */}
         <div style={{
-          display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start",
-          padding: "clamp(40px, 8vw, 100px) clamp(32px, 6vw, 80px)",
-          background: "#FDFAF6", position: "relative", zIndex: 1,
+          position: "absolute", inset: 0,
+          background: "linear-gradient(to bottom, rgba(26,15,10,0.25) 0%, rgba(26,15,10,0.20) 40%, rgba(26,15,10,0.55) 80%, rgba(26,15,10,0.72) 100%)",
+        }} />
+
+        {/* Content — centered */}
+        <div style={{
+          position: "relative", zIndex: 10,
+          height: "100%",
+          display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center",
+          textAlign: "center",
+          padding: "0 24px",
         }}>
           {/* Logo */}
-          <div style={{ marginBottom: "32px" }}>
-            <Image src="/logo.jpg" alt="Jolies Fleurs" width={64} height={64}
-              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(232,160,176,0.5)" }} />
+          <div className="float-anim" style={{ marginBottom: "28px" }}>
+            <Image src="/logo.jpg" alt="Jolies Fleurs" width={80} height={80} priority
+              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.35)", boxShadow: "0 0 32px rgba(232,160,176,0.30)" }} />
           </div>
 
-          <p style={{ fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#C4956A", fontWeight: 500, marginBottom: "16px" }}>
+          <p style={{ fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(201,149,106,0.90)", fontWeight: 500, marginBottom: "20px" }}>
             Цветочный бутик · Москва
           </p>
 
           <h1 style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(3.5rem, 6vw, 6rem)",
-            fontWeight: 300, lineHeight: 0.95, color: "#2C2420",
-            letterSpacing: "-0.02em", marginBottom: "24px",
+            fontSize: "clamp(3.5rem, 9vw, 8rem)",
+            fontWeight: 300, lineHeight: 0.92,
+            color: "#FDFAF6",
+            letterSpacing: "-0.01em",
+            marginBottom: "28px",
+            textShadow: "0 2px 40px rgba(26,15,10,0.40)",
           }}>
             {s.shopName}
           </h1>
 
-          {/* Gold line */}
-          <div style={{ width: "40px", height: "1px", background: "linear-gradient(to right, #C4956A, transparent)", marginBottom: "24px" }} />
+          {/* Divider */}
+          <div style={{ width: "48px", height: "1px", background: "linear-gradient(to right, transparent, rgba(201,149,106,0.8), transparent)", marginBottom: "24px" }} />
 
           <p style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(1.1rem, 2vw, 1.4rem)", fontWeight: 300,
-            color: "#6B5048", lineHeight: 1.4, marginBottom: "12px",
+            fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
+            fontWeight: 300, color: "rgba(253,250,246,0.85)",
+            letterSpacing: "0.02em", marginBottom: "10px",
           }}>
             {s.tagline}
           </p>
 
-          <p style={{ fontSize: "0.78rem", color: "#B39280", letterSpacing: "0.06em", marginBottom: "40px" }}>
+          <p style={{ fontSize: "0.75rem", color: "rgba(253,250,246,0.45)", letterSpacing: "0.1em", marginBottom: "44px" }}>
             {s.heroSubtitle}
           </p>
 
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "center" }}>
             <Link href="/catalog" className="btn-primary">Смотреть каталог</Link>
-            <Link href="#order" className="btn-outline">Оставить заявку</Link>
+            <Link href="#order" className="btn-ghost">Оставить заявку</Link>
           </div>
+        </div>
 
-          {/* Scroll hint */}
-          <div style={{ position: "absolute", bottom: "32px", left: "clamp(32px,6vw,80px)", display: "flex", alignItems: "center", gap: "12px", opacity: 0.4 }}>
-            <div style={{ width: "32px", height: "1px", background: "#C4956A" }} />
-            <span style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#6B5048" }}>Scroll</span>
-          </div>
+        {/* Scroll indicator */}
+        <div style={{
+          position: "absolute", bottom: "32px", left: "50%", transform: "translateX(-50%)",
+          display: "flex", flexDirection: "column", alignItems: "center", gap: "8px",
+          opacity: 0.45,
+        }}>
+          <span style={{ fontSize: "0.58rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#FDFAF6" }}>Scroll</span>
+          <div style={{ width: "1px", height: "36px", background: "linear-gradient(to bottom, rgba(201,149,106,0.8), transparent)" }} />
         </div>
       </section>
 
