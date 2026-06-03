@@ -5,7 +5,7 @@ import Image from "next/image";
 import type { Product, Settings, Submission } from "@/lib/data";
 import ImageUploader from "@/components/ImageUploader";
 
-type Tab = "products" | "settings" | "submissions";
+type Tab = "products" | "content" | "settings" | "submissions";
 
 // Admin-specific button styles — not using site's .btn-primary
 const ABtnPrimary: React.CSSProperties = {
@@ -137,7 +137,7 @@ export default function AdminClient({
 
         {/* ── Sidebar ── */}
         <div style={{ width: "200px", background: "#fff", borderRight: "1px solid #f0f0f0", padding: "16px 0", flexShrink: 0 }}>
-          {(["products", "settings", "submissions"] as Tab[]).map((t) => (
+          {(["products", "content", "settings", "submissions"] as Tab[]).map((t) => (
             <button key={t} onClick={() => setTab(t)}
               style={{
                 display: "block", width: "100%", textAlign: "left",
@@ -148,7 +148,7 @@ export default function AdminClient({
                 borderLeft: tab === t ? "3px solid #F2A7B5" : "3px solid transparent",
                 transition: "all 0.15s",
               }}>
-              {t === "products" ? "Товары" : t === "settings" ? "Настройки" : "Заявки"}
+              {t === "products" ? "Товары" : t === "content" ? "Контент" : t === "settings" ? "Настройки" : "Заявки"}
             </button>
           ))}
         </div>
@@ -275,14 +275,61 @@ export default function AdminClient({
             </div>
           )}
 
+          {/* CONTENT */}
+          {tab === "content" && (
+            <div style={{ maxWidth: "700px" }}>
+              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "8px" }}>Контент сайта</h2>
+              <p style={{ fontSize: "13px", color: "#9ca3af", marginBottom: "28px" }}>Все изменения появятся на сайте через ~1 минуту после сохранения</p>
+
+              {/* Hero */}
+              <Section title="Главный экран">
+                {([
+                  ["tagline", "Слоган (крупный текст)", false],
+                  ["heroSubtitle", "Подзаголовок (мелкий текст)", false],
+                ] as [keyof Settings, string, boolean][]).map(([k, l]) => (
+                  <Field key={k} label={l} value={settings[k]} onChange={(v) => setSettings({ ...settings, [k]: v })} />
+                ))}
+              </Section>
+
+              {/* About */}
+              <Section title="Блок «О нас»">
+                {([
+                  ["aboutTitle", "Заголовок", false],
+                  ["aboutText", "Текст", true],
+                ] as [keyof Settings, string, boolean][]).map(([k, l, multi]) => (
+                  <Field key={k} label={l} value={settings[k]} onChange={(v) => setSettings({ ...settings, [k]: v })} multiline={multi} />
+                ))}
+              </Section>
+
+              {/* Why Us */}
+              <Section title="Блок «Почему мы»">
+                <Field label="Заголовок блока" value={settings.whyTitle} onChange={(v) => setSettings({ ...settings, whyTitle: v })} />
+                {[1,2,3,4].map((n) => (
+                  <div key={n} style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: "10px", marginBottom: "10px" }}>
+                    <Field label={`Пункт ${n} — название`} value={settings[`whyItem${n}Title` as keyof Settings]} onChange={(v) => setSettings({ ...settings, [`whyItem${n}Title`]: v })} />
+                    <Field label={`Пункт ${n} — описание`} value={settings[`whyItem${n}Desc` as keyof Settings]} onChange={(v) => setSettings({ ...settings, [`whyItem${n}Desc`]: v })} />
+                  </div>
+                ))}
+              </Section>
+
+              {/* Reviews */}
+              <Section title="Блок «Отзывы»">
+                <Field label="Заголовок" value={settings.reviewsTitle} onChange={(v) => setSettings({ ...settings, reviewsTitle: v })} />
+              </Section>
+
+              <button onClick={saveSettings} style={{ ...ABtnPrimary, padding: "12px 28px", fontSize: "15px", marginTop: "8px" }}>
+                Сохранить контент
+              </button>
+            </div>
+          )}
+
           {/* SETTINGS */}
           {tab === "settings" && (
             <div>
-              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "24px" }}>Настройки сайта</h2>
+              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "24px" }}>Контакты и реквизиты</h2>
               <div style={{ background: "#fff", borderRadius: "16px", padding: "28px", maxWidth: "600px", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
                 {([
                   ["shopName", "Название магазина"],
-                  ["tagline", "Слоган"],
                   ["address1", "Адрес 1"],
                   ["address2", "Адрес 2"],
                   ["phone1", "Телефон 1"],
@@ -300,7 +347,7 @@ export default function AdminClient({
                   </div>
                 ))}
                 <button onClick={saveSettings} style={{ ...ABtnPrimary, marginTop: "8px", padding: "10px 24px", fontSize: "15px" }}>
-                  Сохранить настройки
+                  Сохранить
                 </button>
               </div>
             </div>
@@ -335,6 +382,39 @@ export default function AdminClient({
 
         </div>
       </div>
+    </div>
+  );
+}
+
+// ── Helper components ────────────────────────────────────────────────────────
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div style={{ background: "#fff", borderRadius: "16px", padding: "24px", marginBottom: "20px", boxShadow: "0 1px 8px rgba(0,0,0,0.05)" }}>
+      <h3 style={{ fontSize: "14px", fontWeight: 700, color: "#1a1a1a", marginBottom: "18px", borderBottom: "1px solid #f3f4f6", paddingBottom: "12px" }}>
+        {title}
+      </h3>
+      {children}
+    </div>
+  );
+}
+
+function Field({ label, value, onChange, multiline }: { label: string; value: string; onChange: (v: string) => void; multiline?: boolean }) {
+  const style: React.CSSProperties = {
+    width: "100%", border: "1px solid #e5e7eb", borderRadius: "8px",
+    padding: "8px 12px", fontSize: "14px", color: "#1a1a1a",
+    outline: "none", resize: multiline ? "vertical" : undefined,
+    fontFamily: "system-ui, sans-serif", marginBottom: "4px",
+  };
+  return (
+    <div style={{ marginBottom: "12px" }}>
+      <label style={{ display: "block", fontSize: "11px", fontWeight: 600, color: "#6b7280", marginBottom: "5px", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+        {label}
+      </label>
+      {multiline
+        ? <textarea rows={3} style={style} value={value} onChange={(e) => onChange(e.target.value)} />
+        : <input style={style} value={value} onChange={(e) => onChange(e.target.value)} />
+      }
     </div>
   );
 }

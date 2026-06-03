@@ -22,6 +22,19 @@ export interface Settings {
   hours: string;
   telegram: string;
   delivery: string;
+  heroSubtitle: string;
+  aboutTitle: string;
+  aboutText: string;
+  whyTitle: string;
+  whyItem1Title: string;
+  whyItem1Desc: string;
+  whyItem2Title: string;
+  whyItem2Desc: string;
+  whyItem3Title: string;
+  whyItem3Desc: string;
+  whyItem4Title: string;
+  whyItem4Desc: string;
+  reviewsTitle: string;
 }
 
 export interface Submission {
