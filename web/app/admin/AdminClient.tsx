@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import type { Product, Settings, Submission } from "@/lib/data";
+import ImageUploader from "@/components/ImageUploader";
 
 type Tab = "products" | "settings" | "submissions";
 
@@ -58,15 +59,7 @@ export default function AdminClient({
 
   const addProduct = async () => {
     const id = Math.max(0, ...products.map((p) => p.id)) + 1;
-    let image = newProduct.image || "";
-    const fileInput = document.getElementById("new-file") as HTMLInputElement;
-    if (fileInput?.files?.[0]) {
-      const fd = new FormData();
-      fd.append("file", fileInput.files[0]);
-      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-      const data = await res.json();
-      image = data.url || image;
-    }
+    const image = newProduct.image || "";
     const priceNum = Number(String(newProduct.priceNum || "0").replace(/\D/g, ""));
     const price = `${priceNum.toLocaleString("ru-RU")} ₽`;
     let cat = newProduct.category || "";
@@ -143,28 +136,36 @@ export default function AdminClient({
               {addMode && (
                 <div className="bg-white rounded-2xl p-6 mb-6 shadow-sm">
                   <h3 className="font-semibold mb-4" style={{ color: "#3D2B1F" }}>Новый товар</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs mb-1 opacity-60">Название</label>
-                      <input className="w-full border rounded-lg px-3 py-2 text-sm" value={newProduct.name || ""} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} placeholder="Букет из роз" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="md:col-span-2">
+                      <label className="block text-xs mb-2 font-medium opacity-70">Фотография товара</label>
+                      <ImageUploader
+                        value={newProduct.image || ""}
+                        onChange={(url) => setNewProduct({ ...newProduct, image: url })}
+                      />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1 opacity-60">Цена (число)</label>
-                      <input className="w-full border rounded-lg px-3 py-2 text-sm" type="number" value={newProduct.priceNum || ""} onChange={(e) => setNewProduct({ ...newProduct, priceNum: Number(e.target.value) })} placeholder="3500" />
+                      <label className="block text-xs mb-1.5 font-medium opacity-70">Название</label>
+                      <input className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+                        value={newProduct.name || ""}
+                        onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                        placeholder="Букет из роз"
+                        style={{ borderColor: "rgba(201,169,110,0.3)" }} />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1 opacity-60">Фото из файла</label>
-                      <input id="new-file" type="file" accept="image/*" className="w-full text-xs" />
+                      <label className="block text-xs mb-1.5 font-medium opacity-70">Цена (₽)</label>
+                      <input className="w-full border rounded-lg px-3 py-2 text-sm outline-none focus:border-rose-300"
+                        type="number" value={newProduct.priceNum || ""}
+                        onChange={(e) => setNewProduct({ ...newProduct, priceNum: Number(e.target.value) })}
+                        placeholder="3500"
+                        style={{ borderColor: "rgba(201,169,110,0.3)" }} />
                     </div>
                     <div>
-                      <label className="block text-xs mb-1 opacity-60">Или URL фото</label>
-                      <input className="w-full border rounded-lg px-3 py-2 text-sm" value={newProduct.image || ""} onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })} placeholder="https://..." />
-                    </div>
-                    <div>
-                      <label className="block text-xs mb-1 opacity-60">Категория</label>
-                      <select className="w-full border rounded-lg px-3 py-2 text-sm bg-white"
+                      <label className="block text-xs mb-1.5 font-medium opacity-70">Категория</label>
+                      <select className="w-full border rounded-lg px-3 py-2 text-sm bg-white outline-none"
                         value={newProduct.category || ""}
-                        onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}>
+                        onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                        style={{ borderColor: "rgba(201,169,110,0.3)" }}>
                         <option value="">— авто по цене —</option>
                         <option value="under3k">До 3 000 ₽</option>
                         <option value="3k-5k">3 000 – 5 000 ₽</option>
@@ -189,15 +190,26 @@ export default function AdminClient({
                   {products.map((p) => (
                     <div key={p.id}>
                       {editProduct?.id === p.id ? (
-                        <div className="p-4 bg-rose-50">
-                          <div className="grid grid-cols-2 gap-3 mb-3">
+                        <div className="p-5 bg-rose-50 rounded-xl">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            {/* Image uploader — full width */}
+                            <div className="md:col-span-2">
+                              <label className="text-xs font-medium opacity-70 block mb-2">Фотография</label>
+                              <ImageUploader
+                                value={editProduct.image}
+                                onChange={(url) => setEditProduct({ ...editProduct, image: url })}
+                              />
+                            </div>
                             <div>
                               <label className="text-xs opacity-60 block mb-1">Название</label>
-                              <input className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.name} onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })} />
+                              <input className="w-full border rounded-lg px-2 py-1.5 text-sm outline-none"
+                                value={editProduct.name}
+                                onChange={(e) => setEditProduct({ ...editProduct, name: e.target.value })} />
                             </div>
                             <div>
                               <label className="text-xs opacity-60 block mb-1">Цена (₽)</label>
-                              <input type="number" className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.priceNum}
+                              <input type="number" className="w-full border rounded-lg px-2 py-1.5 text-sm outline-none"
+                                value={editProduct.priceNum}
                                 onChange={(e) => {
                                   const n = Number(e.target.value);
                                   setEditProduct({ ...editProduct, priceNum: n, price: `${n.toLocaleString("ru-RU")} ₽` });
@@ -205,7 +217,8 @@ export default function AdminClient({
                             </div>
                             <div>
                               <label className="text-xs opacity-60 block mb-1">Категория</label>
-                              <select className="w-full border rounded px-2 py-1.5 text-sm bg-white" value={editProduct.category}
+                              <select className="w-full border rounded-lg px-2 py-1.5 text-sm bg-white outline-none"
+                                value={editProduct.category}
                                 onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })}>
                                 <option value="under3k">До 3 000 ₽</option>
                                 <option value="3k-5k">3 000 – 5 000 ₽</option>
@@ -214,13 +227,10 @@ export default function AdminClient({
                                 <option value="custom">Своя категория...</option>
                               </select>
                               {editProduct.category === "custom" && (
-                                <input className="w-full border rounded px-2 py-1.5 text-sm mt-1" placeholder="Название категории"
+                                <input className="w-full border rounded-lg px-2 py-1.5 text-sm mt-1 outline-none"
+                                  placeholder="Название категории"
                                   onChange={(e) => setEditProduct({ ...editProduct, category: e.target.value })} />
                               )}
-                            </div>
-                            <div>
-                              <label className="text-xs opacity-60 block mb-1">URL изображения</label>
-                              <input className="w-full border rounded px-2 py-1.5 text-sm" value={editProduct.image} onChange={(e) => setEditProduct({ ...editProduct, image: e.target.value })} />
                             </div>
                           </div>
                           <div className="flex gap-2">
