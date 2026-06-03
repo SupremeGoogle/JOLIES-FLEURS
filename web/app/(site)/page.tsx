@@ -25,12 +25,12 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ── HERO — full-screen bg + slow zoom ── */}
-      <section style={{ position: "relative", height: "100svh", minHeight: "600px", overflow: "hidden", background: "#1a0f0a" }}>
+      {/* ── HERO — белый фон с цветочной рамкой + плавное приближение ── */}
+      <section style={{ position: "relative", height: "100svh", minHeight: "600px", overflow: "hidden", background: "#FDFAF6" }}>
 
-        {/* Photo — slow Ken Burns zoom */}
+        {/* Flower frame — slow zoom */}
         <img
-          src="/hero-bg.jpg"
+          src="/hero-frame.jpg"
           alt=""
           aria-hidden="true"
           className="hero-bg-zoom"
@@ -43,15 +43,10 @@ export default function HomePage() {
           }}
         />
 
-        {/* Dual overlay: uniform base + radial center darken for text contrast */}
-        <div style={{ position: "absolute", inset: 0, background: "rgba(20,12,8,0.52)" }} />
+        {/* Лёгкий центральный вил — чтобы текст чётче читался на белом */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 70% 65% at 50% 50%, rgba(20,12,8,0.20) 0%, transparent 100%)",
-        }} />
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(to bottom, rgba(20,12,8,0.08) 0%, transparent 30%, transparent 60%, rgba(20,12,8,0.38) 100%)",
+          background: "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(253,250,246,0.82) 0%, rgba(253,250,246,0.30) 60%, transparent 100%)",
         }} />
 
         {/* Content — centered */}
@@ -64,56 +59,51 @@ export default function HomePage() {
           padding: "80px 24px 0",
         }}>
           {/* Logo */}
-          <div className="float-anim" style={{ marginBottom: "24px" }}>
-            <Image src="/logo.jpg" alt="Jolies Fleurs" width={76} height={76} priority
-              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(255,255,255,0.50)", boxShadow: "0 4px 24px rgba(0,0,0,0.35)" }} />
+          <div className="float-anim" style={{ marginBottom: "20px" }}>
+            <Image src="/logo.jpg" alt="Jolies Fleurs" width={80} height={80} priority
+              style={{ borderRadius: "50%", objectFit: "cover", border: "2px solid rgba(232,160,176,0.6)", boxShadow: "0 4px 24px rgba(44,36,32,0.15)" }} />
           </div>
 
           <p style={{
             fontSize: "0.65rem", letterSpacing: "0.28em", textTransform: "uppercase",
-            color: "#fff", fontWeight: 500, marginBottom: "20px",
-            textShadow: "0 1px 12px rgba(0,0,0,0.8)",
-            opacity: 0.90,
+            color: "#C4956A", fontWeight: 500, marginBottom: "18px",
           }}>
             Цветочный бутик · Москва
           </p>
 
           <h1 style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(3.2rem, 9vw, 7.5rem)",
+            fontSize: "clamp(3rem, 8vw, 7rem)",
             fontWeight: 300, lineHeight: 0.92,
-            color: "#FDFAF6",
-            letterSpacing: "-0.01em",
-            marginBottom: "24px",
-            textShadow: "0 2px 20px rgba(0,0,0,0.70), 0 0 60px rgba(0,0,0,0.40)",
+            color: "#2C2420",
+            letterSpacing: "-0.02em",
+            marginBottom: "22px",
           }}>
             {s.shopName}
           </h1>
 
           {/* Gold divider */}
-          <div style={{ width: "48px", height: "1px", background: "linear-gradient(to right, transparent, rgba(255,220,180,0.9), transparent)", marginBottom: "22px" }} />
+          <div style={{ width: "48px", height: "1px", background: "linear-gradient(to right, transparent, #C4956A, transparent)", marginBottom: "20px" }} />
 
           <p style={{
             fontFamily: "var(--font-cormorant, Georgia, serif)",
-            fontSize: "clamp(1rem, 2.5vw, 1.45rem)",
-            fontWeight: 300, color: "#fff",
-            letterSpacing: "0.02em", marginBottom: "10px",
-            textShadow: "0 1px 16px rgba(0,0,0,0.70)",
+            fontSize: "clamp(1rem, 2.2vw, 1.4rem)",
+            fontWeight: 300, color: "#6B5048",
+            letterSpacing: "0.02em", marginBottom: "8px",
           }}>
             {s.tagline}
           </p>
 
           <p style={{
-            fontSize: "0.73rem", color: "rgba(255,255,255,0.70)",
-            letterSpacing: "0.08em", marginBottom: "40px",
-            textShadow: "0 1px 10px rgba(0,0,0,0.60)",
+            fontSize: "0.72rem", color: "#B39280",
+            letterSpacing: "0.08em", marginBottom: "36px",
           }}>
             {s.heroSubtitle}
           </p>
 
           <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", justifyContent: "center" }}>
             <Link href="/catalog" className="btn-primary">Смотреть каталог</Link>
-            <Link href="#order" className="btn-ghost">Оставить заявку</Link>
+            <Link href="#order" className="btn-outline">Оставить заявку</Link>
           </div>
         </div>
 
