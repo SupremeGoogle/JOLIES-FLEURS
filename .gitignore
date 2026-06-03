@@ -1,0 +1,8 @@
+web/node_modules/
+web/.next/
+web/.env.local
+web/public/uploads/
+.agents/
+*.DS_Store
+__pycache__/
+*.pyc
