@@ -24,6 +24,16 @@ export const metadata: Metadata = {
   description:
     "Свежие букеты и цветочные композиции. Два магазина в Москве, доставка по Москве и МО. Тел: +7 (985) 389-85-91",
   keywords: "цветы, букеты, Москва, доставка цветов, Jolies Fleurs",
+  icons: {
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180" }],
+    other: [
+      { rel: "manifest", url: "/site.webmanifest" },
+    ],
+  },
 };
 
 export default function RootLayout({

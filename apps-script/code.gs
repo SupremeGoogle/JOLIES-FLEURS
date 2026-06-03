@@ -1,74 +1,142 @@
 /**
- * JOLIES FLEURS — Google Apps Script
+ * ═══════════════════════════════════════════════════════════
+ *  JOLIES FLEURS — Google Apps Script для приёма заявок
+ * ═══════════════════════════════════════════════════════════
  *
- * КАК УСТАНОВИТЬ:
- * 1. Открой Google Sheets → Расширения → Apps Script
- * 2. Вставь этот код, нажми Сохранить
- * 3. Нажми "Развернуть" → "Новое развёртывание"
- *    - Тип: Веб-приложение
- *    - Выполнять как: Я (your email)
- *    - Доступ: Все (анонимный)
- * 4. Скопируй URL развёртывания
- * 5. В Vercel добавь переменную APPS_SCRIPT_URL = <скопированный URL>
+ * ШАГ 1. Создай новую Google Таблицу (sheets.google.com)
  *
- * СТРУКТУРА ТАБЛИЦЫ:
- * Лист 1 "Заявки": Дата | Имя | Телефон | Сообщение | Источник
+ * ШАГ 2. В таблице: Расширения → Apps Script
+ *        Удали весь код и вставь ЭТОТ файл целиком. Сохрани (Ctrl+S).
+ *
+ * ШАГ 3. Нажми «Выполнить» → выбери функцию setupSheet → Разреши доступ
+ *        (нужно один раз, чтобы создать заголовки)
+ *
+ * ШАГ 4. Нажми «Развернуть» → «Новое развёртывание»:
+ *        - Тип:          Веб-приложение
+ *        - Выполнять как: Я (akbarchik0071@gmail.com)
+ *        - Доступ:        Все (в том числе анонимные пользователи)
+ *        → Нажми «Развернуть», скопируй URL вида:
+ *          https://script.google.com/macros/s/XXXX.../exec
+ *
+ * ШАГ 5. В Vercel → Settings → Environment Variables добавь:
+ *        APPS_SCRIPT_URL = <скопированный URL из шага 4>
+ *
+ * ШАГ 6. Локально в web/.env.local также добавь:
+ *        APPS_SCRIPT_URL=<тот же URL>
+ *        Затем запусти: ./push.sh "Добавлен Apps Script URL"
+ *
+ * ═══════════════════════════════════════════════════════════
  */
 
-var SHEET_NAME_ORDERS = "Заявки";
+var SHEET_NAME = "Заявки с сайта";
 
+/**
+ * Принимает POST-запрос от сайта и записывает заявку в таблицу.
+ * Вызывается автоматически при отправке формы.
+ */
 function doPost(e) {
   try {
     var data = JSON.parse(e.postData.contents);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = getOrCreateSheet_();
 
-    // Получаем или создаём лист "Заявки"
-    var sheet = ss.getSheetByName(SHEET_NAME_ORDERS);
-    if (!sheet) {
-      sheet = ss.insertSheet(SHEET_NAME_ORDERS);
-      // Заголовки
-      sheet.appendRow(["Дата", "Имя", "Телефон", "Сообщение", "Источник"]);
-      sheet.getRange(1, 1, 1, 5).setFontWeight("bold").setBackground("#F2A7B5");
-      sheet.setFrozenRows(1);
-    }
+    var row = [
+      formatDate_(data.timestamp),   // A: Дата
+      data.name    || "",            // B: Имя
+      data.phone   || "",            // C: Телефон
+      data.message || "",            // D: Сообщение
+      "Сайт"                         // E: Источник
+    ];
 
-    // Добавляем строку
-    sheet.appendRow([
-      new Date(data.timestamp || Date.now()),
-      data.name || "",
-      data.phone || "",
-      data.message || "",
-      data.source || "website"
-    ]);
+    sheet.appendRow(row);
 
-    // Форматируем колонку A как дату
+    // Форматируем дату в последней строке
     var lastRow = sheet.getLastRow();
     sheet.getRange(lastRow, 1).setNumberFormat("dd.MM.yyyy HH:mm");
 
-    return ContentService
-      .createTextOutput(JSON.stringify({ success: true }))
-      .setMimeType(ContentService.MimeType.JSON);
+    // Чередующийся цвет строк для читаемости
+    var bg = (lastRow % 2 === 0) ? "#FFF5F7" : "#FFFFFF";
+    sheet.getRange(lastRow, 1, 1, 5).setBackground(bg);
+
+    return ok_({ saved: true, row: lastRow });
 
   } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ok_({ saved: false, error: err.toString() });
   }
 }
 
-// Тестовая функция — запусти вручную для проверки
-function testDoPost() {
+/**
+ * Обработчик GET — для проверки что скрипт работает.
+ * Открой URL в браузере — должен вернуть {"status":"ok"}
+ */
+function doGet() {
+  return ok_({ status: "ok", sheet: SHEET_NAME });
+}
+
+/** Запусти вручную один раз для создания заголовков */
+function setupSheet() {
+  var sheet = getOrCreateSheet_();
+  Logger.log("Лист готов: " + sheet.getName());
+}
+
+/** Тест без реального HTTP-запроса */
+function testSend() {
   var fakeEvent = {
     postData: {
       contents: JSON.stringify({
-        name: "Тест Тестов",
-        phone: "+7 999 000-00-00",
-        message: "Тестовая заявка",
-        timestamp: new Date().toISOString(),
-        source: "website"
+        name: "Мария Тестова",
+        phone: "+7 (999) 123-45-67",
+        message: "Хочу заказать букет роз на день рождения",
+        timestamp: new Date().toISOString()
       })
     }
   };
   var result = doPost(fakeEvent);
   Logger.log(result.getContent());
+}
+
+// ─── Вспомогательные функции ───────────────────────────────
+
+function getOrCreateSheet_() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName(SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(SHEET_NAME, 0);
+
+    // Заголовки
+    var headers = ["📅 Дата", "👤 Имя", "📞 Телефон", "💬 Сообщение", "🌐 Источник"];
+    sheet.appendRow(headers);
+
+    // Стиль заголовков
+    var headerRange = sheet.getRange(1, 1, 1, headers.length);
+    headerRange
+      .setBackground("#F2A7B5")
+      .setFontWeight("bold")
+      .setFontColor("#3D2B1F")
+      .setFontSize(11);
+
+    // Ширина колонок
+    sheet.setColumnWidth(1, 140);  // Дата
+    sheet.setColumnWidth(2, 160);  // Имя
+    sheet.setColumnWidth(3, 160);  // Телефон
+    sheet.setColumnWidth(4, 400);  // Сообщение
+    sheet.setColumnWidth(5, 100);  // Источник
+
+    sheet.setFrozenRows(1);
+
+    Logger.log("✅ Лист создан: " + SHEET_NAME);
+  }
+
+  return sheet;
+}
+
+function formatDate_(iso) {
+  if (!iso) return new Date();
+  try { return new Date(iso); } catch (e) { return new Date(); }
+}
+
+function ok_(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }
