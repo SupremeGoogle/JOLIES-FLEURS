@@ -6,7 +6,8 @@
     "priceNum": 10350,
     "category": "over7k",
     "image": "/flowers/10.350₽.jpg",
-    "slug": "bouquet-1"
+    "slug": "bouquet-1",
+    "featured": false
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "priceNum": 10470,
     "category": "over7k",
     "image": "/flowers/10470₽.jpg",
-    "slug": "bouquet-2"
+    "slug": "bouquet-2",
+    "featured": false
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "priceNum": 2080,
     "category": "under3k",
     "image": "/flowers/2.080₽.jpg",
-    "slug": "bouquet-3"
+    "slug": "bouquet-3",
+    "featured": false
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "priceNum": 2080,
     "category": "under3k",
     "image": "/flowers/2.080₽_27.jpg",
-    "slug": "bouquet-4"
+    "slug": "bouquet-4",
+    "featured": false
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "priceNum": 2099,
     "category": "under3k",
     "image": "/flowers/2.099₽.jpg",
-    "slug": "bouquet-5"
+    "slug": "bouquet-5",
+    "featured": false
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "priceNum": 2350,
     "category": "under3k",
     "image": "/flowers/2.350₽.jpg",
-    "slug": "bouquet-6"
+    "slug": "bouquet-6",
+    "featured": false
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "priceNum": 3100,
     "category": "3k-5k",
     "image": "/flowers/3.100₽.jpg",
-    "slug": "bouquet-7"
+    "slug": "bouquet-7",
+    "featured": false
   },
   {
     "id": 8,
@@ -69,7 +76,8 @@
     "priceNum": 3140,
     "category": "3k-5k",
     "image": "/flowers/3.140₽.jpg",
-    "slug": "bouquet-8"
+    "slug": "bouquet-8",
+    "featured": false
   },
   {
     "id": 9,
@@ -78,7 +86,8 @@
     "priceNum": 3200,
     "category": "3k-5k",
     "image": "/flowers/3.200₽.jpg",
-    "slug": "bouquet-9"
+    "slug": "bouquet-9",
+    "featured": false
   },
   {
     "id": 10,
@@ -87,7 +96,8 @@
     "priceNum": 3200,
     "category": "3k-5k",
     "image": "/flowers/3.200₽_17.jpg",
-    "slug": "bouquet-10"
+    "slug": "bouquet-10",
+    "featured": false
   },
   {
     "id": 11,
@@ -96,7 +106,8 @@
     "priceNum": 3220,
     "category": "3k-5k",
     "image": "/flowers/3.220₽.jpg",
-    "slug": "bouquet-11"
+    "slug": "bouquet-11",
+    "featured": false
   },
   {
     "id": 12,
@@ -105,7 +116,8 @@
     "priceNum": 3910,
     "category": "3k-5k",
     "image": "/flowers/3.910₽.jpg",
-    "slug": "bouquet-12"
+    "slug": "bouquet-12",
+    "featured": false
   },
   {
     "id": 13,
@@ -114,7 +126,8 @@
     "priceNum": 3970,
     "category": "3k-5k",
     "image": "/flowers/3.970₽.jpg",
-    "slug": "bouquet-13"
+    "slug": "bouquet-13",
+    "featured": false
   },
   {
     "id": 14,
@@ -123,7 +136,8 @@
     "priceNum": 3995,
     "category": "3k-5k",
     "image": "/flowers/3.995₽.jpg",
-    "slug": "bouquet-14"
+    "slug": "bouquet-14",
+    "featured": false
   },
   {
     "id": 15,
@@ -132,7 +146,8 @@
     "priceNum": 4165,
     "category": "3k-5k",
     "image": "/flowers/4.165₽.jpg",
-    "slug": "bouquet-15"
+    "slug": "bouquet-15",
+    "featured": false
   },
   {
     "id": 16,
@@ -141,7 +156,8 @@
     "priceNum": 4300,
     "category": "3k-5k",
     "image": "/flowers/4.300₽.jpg",
-    "slug": "bouquet-16"
+    "slug": "bouquet-16",
+    "featured": false
   },
   {
     "id": 17,
@@ -150,7 +166,8 @@
     "priceNum": 5250,
     "category": "5k-7k",
     "image": "/flowers/5.250₽.jpg",
-    "slug": "bouquet-17"
+    "slug": "bouquet-17",
+    "featured": true
   },
   {
     "id": 18,
@@ -159,7 +176,8 @@
     "priceNum": 5300,
     "category": "5k-7k",
     "image": "/flowers/5.300₽.jpg",
-    "slug": "bouquet-18"
+    "slug": "bouquet-18",
+    "featured": true
   },
   {
     "id": 19,
@@ -168,7 +186,8 @@
     "priceNum": 5355,
     "category": "5k-7k",
     "image": "/flowers/5.355₽.jpg",
-    "slug": "bouquet-19"
+    "slug": "bouquet-19",
+    "featured": true
   },
   {
     "id": 20,
@@ -177,7 +196,8 @@
     "priceNum": 5410,
     "category": "5k-7k",
     "image": "/flowers/5.410₽.jpg",
-    "slug": "bouquet-20"
+    "slug": "bouquet-20",
+    "featured": true
   },
   {
     "id": 21,
@@ -186,7 +206,8 @@
     "priceNum": 5530,
     "category": "5k-7k",
     "image": "/flowers/5.530₽.jpg",
-    "slug": "bouquet-21"
+    "slug": "bouquet-21",
+    "featured": true
   },
   {
     "id": 22,
@@ -195,7 +216,8 @@
     "priceNum": 5600,
     "category": "5k-7k",
     "image": "/flowers/5.600₽.jpg",
-    "slug": "bouquet-22"
+    "slug": "bouquet-22",
+    "featured": true
   },
   {
     "id": 23,
@@ -204,7 +226,8 @@
     "priceNum": 5640,
     "category": "5k-7k",
     "image": "/flowers/5.640₽.jpg",
-    "slug": "bouquet-23"
+    "slug": "bouquet-23",
+    "featured": false
   },
   {
     "id": 24,
@@ -213,7 +236,8 @@
     "priceNum": 5650,
     "category": "5k-7k",
     "image": "/flowers/5.650₽.jpg",
-    "slug": "bouquet-24"
+    "slug": "bouquet-24",
+    "featured": false
   },
   {
     "id": 25,
@@ -222,7 +246,8 @@
     "priceNum": 5990,
     "category": "5k-7k",
     "image": "/flowers/5.990₽.jpg",
-    "slug": "bouquet-25"
+    "slug": "bouquet-25",
+    "featured": false
   },
   {
     "id": 26,
@@ -231,7 +256,8 @@
     "priceNum": 5320,
     "category": "5k-7k",
     "image": "/flowers/5320₽.jpg",
-    "slug": "bouquet-26"
+    "slug": "bouquet-26",
+    "featured": false
   },
   {
     "id": 27,
@@ -240,7 +266,8 @@
     "priceNum": 5950,
     "category": "5k-7k",
     "image": "/flowers/5950₽.jpg",
-    "slug": "bouquet-27"
+    "slug": "bouquet-27",
+    "featured": false
   },
   {
     "id": 28,
@@ -249,7 +276,8 @@
     "priceNum": 6000,
     "category": "5k-7k",
     "image": "/flowers/6.000₽.jpg",
-    "slug": "bouquet-28"
+    "slug": "bouquet-28",
+    "featured": false
   },
   {
     "id": 29,
@@ -258,7 +286,8 @@
     "priceNum": 6035,
     "category": "5k-7k",
     "image": "/flowers/6.035₽.jpg",
-    "slug": "bouquet-29"
+    "slug": "bouquet-29",
+    "featured": false
   },
   {
     "id": 30,
@@ -267,7 +296,8 @@
     "priceNum": 6300,
     "category": "5k-7k",
     "image": "/flowers/6.300₽.jpg",
-    "slug": "bouquet-30"
+    "slug": "bouquet-30",
+    "featured": false
   },
   {
     "id": 31,
@@ -276,7 +306,8 @@
     "priceNum": 6180,
     "category": "5k-7k",
     "image": "/flowers/6180₽.jpg",
-    "slug": "bouquet-31"
+    "slug": "bouquet-31",
+    "featured": false
   },
   {
     "id": 32,
@@ -285,7 +316,8 @@
     "priceNum": 6280,
     "category": "5k-7k",
     "image": "/flowers/6280₽.jpg",
-    "slug": "bouquet-32"
+    "slug": "bouquet-32",
+    "featured": false
   },
   {
     "id": 33,
@@ -294,7 +326,8 @@
     "priceNum": 7100,
     "category": "over7k",
     "image": "/flowers/7.100₽.jpg",
-    "slug": "bouquet-33"
+    "slug": "bouquet-33",
+    "featured": false
   },
   {
     "id": 34,
@@ -303,7 +336,8 @@
     "priceNum": 7370,
     "category": "over7k",
     "image": "/flowers/7.370₽.jpg",
-    "slug": "bouquet-34"
+    "slug": "bouquet-34",
+    "featured": false
   },
   {
     "id": 35,
@@ -312,7 +346,8 @@
     "priceNum": 7400,
     "category": "over7k",
     "image": "/flowers/7.400₽.jpg",
-    "slug": "bouquet-35"
+    "slug": "bouquet-35",
+    "featured": false
   },
   {
     "id": 36,
@@ -321,7 +356,8 @@
     "priceNum": 7400,
     "category": "over7k",
     "image": "/flowers/7.400₽_39.jpg",
-    "slug": "bouquet-36"
+    "slug": "bouquet-36",
+    "featured": false
   },
   {
     "id": 37,
@@ -330,7 +366,8 @@
     "priceNum": 7530,
     "category": "over7k",
     "image": "/flowers/7.530₽.jpg",
-    "slug": "bouquet-37"
+    "slug": "bouquet-37",
+    "featured": false
   },
   {
     "id": 38,
@@ -339,7 +376,8 @@
     "priceNum": 7600,
     "category": "over7k",
     "image": "/flowers/7.600₽.jpg",
-    "slug": "bouquet-38"
+    "slug": "bouquet-38",
+    "featured": false
   },
   {
     "id": 39,
@@ -348,6 +386,7 @@
     "priceNum": 7550,
     "category": "over7k",
     "image": "/flowers/7550₽.jpg",
-    "slug": "bouquet-39"
+    "slug": "bouquet-39",
+    "featured": false
   }
 ]

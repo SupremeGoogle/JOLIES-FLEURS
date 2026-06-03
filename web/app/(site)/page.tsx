@@ -14,7 +14,8 @@ const reviewsList = [
 export default function HomePage() {
   const products = getProducts();
   const s = getSettings();
-  const featured = products.slice(16, 22);
+  const featuredRaw = products.filter((p) => p.featured);
+  const featured = (featuredRaw.length > 0 ? featuredRaw : products.slice(0, 6)).slice(0, 6);
 
   const features = [
     { title: s.whyItem1Title, desc: s.whyItem1Desc },

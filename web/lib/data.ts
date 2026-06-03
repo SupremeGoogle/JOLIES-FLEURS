@@ -10,6 +10,7 @@ export interface Product {
   category: string;
   image: string;
   slug: string;
+  featured?: boolean;
 }
 
 export interface Settings {

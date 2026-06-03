@@ -204,8 +204,8 @@ export default function AdminClient({
               {/* Table */}
               <div style={{ background: "#fff", borderRadius: "16px", overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
                 {/* Header */}
-                <div style={{ display: "grid", gridTemplateColumns: "68px 1fr 110px 120px 130px", padding: "12px 16px", background: "#fafafa", borderBottom: "1px solid #f0f0f0", fontSize: "12px", fontWeight: 600, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                  <span>Фото</span><span>Название</span><span>Цена</span><span>Категория</span><span>Действия</span>
+                <div style={{ display: "grid", gridTemplateColumns: "68px 1fr 110px 120px 44px 130px", padding: "12px 16px", background: "#fafafa", borderBottom: "1px solid #f0f0f0", fontSize: "12px", fontWeight: 600, color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                  <span>Фото</span><span>Название</span><span>Цена</span><span>Категория</span><span title="Любимые букеты">★</span><span>Действия</span>
                 </div>
 
                 {products.map((p) => (
@@ -252,7 +252,7 @@ export default function AdminClient({
                       </div>
                     ) : (
                       /* Normal row */
-                      <div style={{ display: "grid", gridTemplateColumns: "68px 1fr 110px 120px 130px", alignItems: "center", padding: "10px 16px", borderBottom: "1px solid #f9f9f9" }}
+                      <div style={{ display: "grid", gridTemplateColumns: "68px 1fr 110px 120px 44px 130px", alignItems: "center", padding: "10px 16px", borderBottom: "1px solid #f9f9f9" }}
                         onMouseEnter={(e) => (e.currentTarget.style.background = "#fafafa")}
                         onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}>
                         <div style={{ width: "48px", height: "48px", borderRadius: "10px", overflow: "hidden", background: "#f3f4f6" }}>
@@ -263,6 +263,13 @@ export default function AdminClient({
                         <span style={{ display: "inline-block", fontSize: "12px", padding: "3px 10px", borderRadius: "20px", background: "#FFF0F3", color: "#c97889" }}>
                           {CAT_LABELS[p.category] || p.category}
                         </span>
+                        <button
+                          title="Показывать в «Любимые букеты»"
+                          onClick={() => saveProducts(products.map((x) => x.id === p.id ? { ...x, featured: !x.featured } : x))}
+                          style={{ background: "none", border: "none", cursor: "pointer", fontSize: "20px", padding: "2px", lineHeight: 1, color: p.featured ? "#F2A7B5" : "#d1d5db" }}
+                        >
+                          {p.featured ? "★" : "☆"}
+                        </button>
                         <div style={{ display: "flex", flexDirection: "column", gap: "3px", alignItems: "flex-start" }}>
                           <button onClick={() => setEditProduct(p)} style={ABtnEdit}>Изменить</button>
                           <button onClick={() => deleteProduct(p.id)} style={ABtnDanger}>Удалить</button>
