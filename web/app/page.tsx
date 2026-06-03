@@ -26,11 +26,32 @@ export default async function HomePage() {
       {/* HERO */}
       <section
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #FCE8ED 0%, #FDFAF6 50%, #E8F3E6 100%)" }}
+        style={{ background: "#1a0f0a" }}
       >
-        <div className="absolute top-20 right-10 w-64 h-64 rounded-full opacity-20 pointer-events-none"
+        {/* Background photo with slow zoom */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src="/flowers/7550%E2%82%BD.jpg"
+            alt=""
+            aria-hidden="true"
+            className="hero-bg-zoom w-full h-full object-cover"
+            style={{ opacity: 0.38, transformOrigin: "center center" }}
+          />
+        </div>
+
+        {/* Gradient overlay for readability */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(253,250,246,0.18) 0%, rgba(61,43,31,0.55) 50%, rgba(61,43,31,0.72) 100%)",
+          }}
+        />
+
+        {/* Soft colour blobs */}
+        <div className="absolute top-20 right-10 w-64 h-64 rounded-full opacity-15 pointer-events-none"
           style={{ background: "radial-gradient(circle, #F2A7B5, transparent)" }} />
-        <div className="absolute bottom-20 left-10 w-48 h-48 rounded-full opacity-15 pointer-events-none"
+        <div className="absolute bottom-20 left-10 w-48 h-48 rounded-full opacity-10 pointer-events-none"
           style={{ background: "radial-gradient(circle, #A8C5A0, transparent)" }} />
 
         <div className="relative z-10 text-center px-6 max-w-3xl mx-auto pt-20">
@@ -40,14 +61,14 @@ export default async function HomePage() {
               style={{ border: "4px solid #F2A7B5", boxShadow: "0 8px 32px rgba(242,167,181,0.4)" }} />
           </div>
           <h1 className="font-heading text-5xl md:text-7xl font-light mb-4"
-            style={{ color: "#3D2B1F", fontFamily: "var(--font-cormorant, Georgia, serif)", lineHeight: 1.1 }}>
+            style={{ color: "#FDFAF6", fontFamily: "var(--font-cormorant, Georgia, serif)", lineHeight: 1.1, textShadow: "0 2px 24px rgba(61,43,31,0.4)" }}>
             Jolies Fleurs
           </h1>
-          <p className="text-xl md:text-2xl font-light mb-2 opacity-80"
-            style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#7A5C4F" }}>
+          <p className="text-xl md:text-2xl font-light mb-2"
+            style={{ fontFamily: "var(--font-cormorant, Georgia, serif)", color: "#F2A7B5" }}>
             Цветы, которые говорят за вас
           </p>
-          <p className="text-base opacity-60 mb-10" style={{ color: "#7A5C4F" }}>
+          <p className="text-base mb-10" style={{ color: "rgba(253,250,246,0.65)" }}>
             Свежие букеты и авторские композиции · Москва
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -55,9 +76,9 @@ export default async function HomePage() {
             <Link href="/contacts" className="btn-outline text-center text-base">Связаться с нами</Link>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
-          <span className="text-xs" style={{ color: "#7A5C4F" }}>прокрутите вниз</span>
-          <div className="w-0.5 h-8" style={{ background: "linear-gradient(to bottom, #C9A96E, transparent)" }} />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+          <span className="text-xs" style={{ color: "#FDFAF6" }}>прокрутите вниз</span>
+          <div className="w-0.5 h-8" style={{ background: "linear-gradient(to bottom, #F2A7B5, transparent)" }} />
         </div>
       </section>
 

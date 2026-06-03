@@ -70,6 +70,15 @@ body {
 
 .float-anim { animation: float 4s ease-in-out infinite; }
 
+@keyframes slow-zoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.12); }
+}
+.hero-bg-zoom {
+  animation: slow-zoom 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #FDFAF6; }
 ::-webkit-scrollbar-thumb { background: #F2A7B5; border-radius: 3px; }
