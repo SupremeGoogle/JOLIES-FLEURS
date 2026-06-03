@@ -1,9 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Букет 67",
-    "price": "10 350 ₽",
-    "priceNum": 10350,
+    "name": "Букет 1",
+    "price": "1 035 000 ₽",
+    "priceNum": 1035000,
     "category": "over7k",
     "image": "/flowers/10.350₽.jpg",
     "slug": "bouquet-1"
