@@ -28,7 +28,7 @@ export default function HomePage() {
       {/* ── HERO — bg.jpg (розы по краям) на весь экран ── */}
       <section style={{ position: "relative", height: "100svh", minHeight: "600px", overflow: "hidden", background: "#FDFAF6" }}>
 
-        {/* bg.jpg — slow Ken Burns zoom, contain чтобы рамка была видна целиком */}
+        {/* bg.jpg — на весь экран, медленный zoom */}
         <img
           src="/bg-web.jpg"
           alt=""
@@ -38,17 +38,23 @@ export default function HomePage() {
           style={{
             position: "absolute", inset: 0,
             width: "100%", height: "100%",
-            objectFit: "contain",
+            objectFit: "cover",
             objectPosition: "center center",
             transformOrigin: "center center",
-            background: "#FDFAF6",
           }}
         />
 
-        {/* Мягкий центральный свет — выделяет зону текста */}
+        {/* Градиент под навбар — тёмный сверху чтобы ссылки читались */}
         <div style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(ellipse 55% 50% at 50% 50%, rgba(253,250,246,0.88) 0%, rgba(253,250,246,0.60) 45%, rgba(253,250,246,0.10) 75%, transparent 100%)",
+          background: "linear-gradient(to bottom, rgba(44,36,32,0.38) 0%, rgba(44,36,32,0.05) 18%, transparent 35%)",
+          pointerEvents: "none",
+        }} />
+
+        {/* Мягкий центральный свет для текста */}
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "radial-gradient(ellipse 60% 55% at 50% 52%, rgba(253,250,246,0.82) 0%, rgba(253,250,246,0.45) 50%, transparent 80%)",
           pointerEvents: "none",
         }} />
 
