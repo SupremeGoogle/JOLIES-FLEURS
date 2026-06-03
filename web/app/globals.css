@@ -234,7 +234,7 @@ dialog[open] { animation: fade-in 0.3s ease; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #FDFAF6;
+  background: #FAE8EF;
 }
 
 .hero-img {
@@ -253,7 +253,7 @@ dialog[open] { animation: fade-in 0.3s ease; }
 .hero-center-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(253,250,246,0.88) 0%, rgba(253,250,246,0.35) 58%, transparent 100%);
+  background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(250,232,239,0.90) 0%, rgba(250,232,239,0.40) 58%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
