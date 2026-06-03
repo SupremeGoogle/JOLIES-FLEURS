@@ -19,9 +19,9 @@ export async function POST(req: NextRequest) {
       timestamp: timestamp || new Date().toISOString(),
     };
 
-    addSubmission(sub);
+    await addSubmission(sub);
 
-    // Forward to Google Apps Script if URL is set
+    // Forward to Google Apps Script
     const appsScriptUrl = process.env.APPS_SCRIPT_URL;
     if (appsScriptUrl) {
       try {

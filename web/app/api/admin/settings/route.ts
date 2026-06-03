@@ -7,6 +7,6 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
   const settings = await req.json();
-  saveSettings(settings);
+  await saveSettings(settings);
   return Response.json({ success: true });
 }

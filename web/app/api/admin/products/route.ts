@@ -7,6 +7,6 @@ export async function GET() {
 
 export async function PUT(req: NextRequest) {
   const products = await req.json();
-  saveProducts(products);
+  await saveProducts(products);
   return Response.json({ success: true });
 }

@@ -27,14 +27,14 @@ export default function AdminClient({
 
   const showSaved = (msg: string) => {
     setSaved(msg);
-    setTimeout(() => setSaved(""), 2500);
+    setTimeout(() => setSaved(""), 8000);
   };
 
   const saveProducts = async (updated: Product[]) => {
     setSaving(true);
     await fetch("/api/admin/products", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(updated) });
     setSaving(false);
-    showSaved("Товары сохранены");
+    showSaved("✅ Сохранено! Сайт обновится через ~1 минуту.");
     setProducts(updated);
   };
 
@@ -42,7 +42,7 @@ export default function AdminClient({
     setSaving(true);
     await fetch("/api/admin/settings", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(settings) });
     setSaving(false);
-    showSaved("Настройки сохранены");
+    showSaved("✅ Сохранено! Сайт обновится через ~1 минуту.");
   };
 
   const deleteProduct = (id: number) => {
