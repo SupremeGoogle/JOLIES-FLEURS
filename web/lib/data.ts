@@ -74,15 +74,7 @@ async function writeData(filename: string, content: string, commitMsg: string) {
   if (isProduction()) {
     await pushFileToGitHub(`web/data/${filename}`, content, commitMsg);
   } else {
-    try {
-      fs.writeFileSync(path.join(dataDir, filename), content, "utf8");
-    } catch (err: any) {
-      if (err?.code === "EROFS") {
-        console.warn(`[data] Read-only FS, skipping local write: ${filename}`);
-      } else {
-        throw err;
-      }
-    }
+    fs.writeFileSync(path.join(dataDir, filename), content, "utf8");
   }
 }
 

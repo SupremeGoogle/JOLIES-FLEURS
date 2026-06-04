@@ -234,7 +234,7 @@ dialog[open] { animation: fade-in 0.3s ease; }
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #1a1412;
+  background: #FAE8EF;
 }
 
 .hero-img {
@@ -249,12 +249,11 @@ dialog[open] { animation: fade-in 0.3s ease; }
 /* Not needed on light bg — kept as empty placeholder */
 .hero-nav-overlay { display: none; }
 
-/* Subtle dark overlay + center vignette so text reads over carpet pattern */
+/* Light central vignette — brightens center so dark text reads well over flower edges */
 .hero-center-glow {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 65% 60% at 50% 48%, rgba(20,16,14,0.15) 0%, rgba(20,16,14,0.55) 70%, rgba(20,16,14,0.75) 100%);
+  background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(250,232,239,0.90) 0%, rgba(250,232,239,0.40) 58%, transparent 100%);
   z-index: 2;
   pointer-events: none;
 }
@@ -275,21 +274,20 @@ dialog[open] { animation: fade-in 0.3s ease; }
   font-size: 0.65rem;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #D4A67B;
+  color: #C4956A;
   font-weight: 500;
   margin-bottom: 16px;
-  text-shadow: 0 1px 12px rgba(0,0,0,0.2);
 }
 
 .hero-title {
   font-family: var(--font-cormorant, Georgia, serif);
   font-size: clamp(2.8rem, 9vw, 5.8rem);
   font-weight: 300;
-  color: #FDFAF6;
+  color: #2C2420;
   line-height: 1.08;
   letter-spacing: -0.01em;
   margin: 0 0 16px;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.3);
+  text-shadow: none;
 }
 
 .hero-divider {
@@ -302,16 +300,15 @@ dialog[open] { animation: fade-in 0.3s ease; }
 .hero-tagline {
   font-family: var(--font-cormorant, Georgia, serif);
   font-size: clamp(1rem, 2.2vw, 1.35rem);
-  color: rgba(253,250,246,0.92);
+  color: #6B5048;
   letter-spacing: 0.02em;
   font-weight: 300;
   margin-bottom: 10px;
-  text-shadow: 0 1px 16px rgba(0,0,0,0.25);
 }
 
 .hero-sub {
   font-size: clamp(0.72rem, 1.8vw, 0.82rem);
-  color: rgba(253,250,246,0.65);
+  color: #B39280;
   letter-spacing: 0.08em;
   line-height: 1.75;
   margin-bottom: 36px;
