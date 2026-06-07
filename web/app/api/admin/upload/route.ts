@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import { writeFile } from "fs/promises";
+import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { pushImageToGitHub, isProduction } from "@/lib/github";
 
@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
     } else {
       // Save locally for dev
       const filePath = path.join(process.cwd(), "public", "uploads", filename);
+      await mkdir(path.dirname(filePath), { recursive: true });
       await writeFile(filePath, buffer);
       url = `/uploads/${filename}`;
     }
