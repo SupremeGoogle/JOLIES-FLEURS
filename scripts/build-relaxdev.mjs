@@ -30,8 +30,8 @@ function copyDir(from, to) {
   console.log(`copied ${from} -> ${to}`);
 }
 
-console.log("RelaxDev build: installing web dependencies");
-run("npm", ["ci"], { cwd: web });
+console.log("RelaxDev build: installing web dependencies, including build-time devDependencies");
+run("npm", ["ci", "--include=dev"], { cwd: web });
 
 console.log("RelaxDev build: building Next.js app in web/");
 run("npm", ["run", "build"], { cwd: web });
