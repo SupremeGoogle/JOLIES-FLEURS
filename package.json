@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm ci --prefix web && npm run build --prefix web && mkdir -p web/.next/standalone/.next && cp -R web/.next/static web/.next/standalone/.next/static && cp -R web/public web/.next/standalone/public",
-    "start": "cd web/.next/standalone && node server.js",
+    "build": "npm ci --prefix web && npm run build --prefix web && rm -rf .next public && mkdir -p .next web/.next/standalone/.next && cp -R web/.next/standalone .next/standalone && cp -R web/.next/static .next/static && cp -R web/.next/static web/.next/standalone/.next/static && cp -R web/public public && cp -R web/public web/.next/standalone/public",
+    "start": "cd .next/standalone && node server.js",
     "lint": "npm run lint --prefix web"
   },
   "engines": {

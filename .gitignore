@@ -2,6 +2,8 @@ web/node_modules/
 web/.next/
 web/.env.local
 web/public/uploads/
+.next/
+public/
 .agents/
 *.DS_Store
 __pycache__/
