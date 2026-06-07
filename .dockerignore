@@ -1,0 +1,11 @@
+.git
+.next
+public
+web/.next
+web/node_modules
+web/public/uploads
+node_modules
+.DS_Store
+.agents
+*.log
+REG_RU_DEPLOY.md
