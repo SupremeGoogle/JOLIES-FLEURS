@@ -23,6 +23,7 @@ export interface Settings {
   hours: string;
   telegram: string;
   delivery: string;
+  submissionsSheetUrl: string;
   heroSubtitle: string;
   aboutTitle: string;
   aboutText: string;

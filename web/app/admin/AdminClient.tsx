@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import type { Product, Settings, Submission } from "@/lib/data";
+import type { Product, Settings } from "@/lib/data";
 import ImageUploader from "@/components/ImageUploader";
 
 type Tab = "products" | "content" | "settings" | "submissions";
@@ -39,11 +39,9 @@ const CAT_LABELS: Record<string, string> = {
 export default function AdminClient({
   products: initialProducts,
   settings: initialSettings,
-  submissions,
 }: {
   products: Product[];
   settings: Settings;
-  submissions: Submission[];
 }) {
   const [tab, setTab] = useState<Tab>("products");
   const [products, setProducts] = useState(initialProducts);
@@ -344,6 +342,7 @@ export default function AdminClient({
                   ["hours", "Часы работы"],
                   ["telegram", "Telegram"],
                   ["delivery", "Доставка"],
+                  ["submissionsSheetUrl", "Google Таблица заявок"],
                 ] as [keyof Settings, string][]).map(([key, label]) => (
                   <div key={key} style={{ marginBottom: "16px" }}>
                     <label style={{ display: "block", fontSize: "12px", fontWeight: 600, color: "#6b7280", marginBottom: "6px", textTransform: "uppercase", letterSpacing: "0.05em" }}>{label}</label>
@@ -362,28 +361,22 @@ export default function AdminClient({
 
           {/* SUBMISSIONS */}
           {tab === "submissions" && (
-            <div>
-              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "24px" }}>
-                Заявки <span style={{ color: "#9ca3af", fontWeight: 400 }}>({submissions.length})</span>
-              </h2>
-              {submissions.length === 0 ? (
-                <div style={{ background: "#fff", borderRadius: "16px", padding: "60px", textAlign: "center", color: "#9ca3af", fontSize: "14px" }}>
-                  Заявок пока нет
-                </div>
-              ) : (
-                <div style={{ background: "#fff", borderRadius: "16px", overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
-                  {submissions.map((s, i) => (
-                    <div key={s.id} style={{ padding: "16px 20px", borderBottom: i < submissions.length - 1 ? "1px solid #f3f4f6" : "none" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
-                        <span style={{ fontSize: "14px", fontWeight: 600, color: "#1a1a1a" }}>{s.name}</span>
-                        <span style={{ fontSize: "12px", color: "#9ca3af" }}>{new Date(s.timestamp).toLocaleString("ru-RU")}</span>
-                      </div>
-                      <a href={`tel:${s.phone}`} style={{ fontSize: "14px", color: "#C9A96E", textDecoration: "none" }}>{s.phone}</a>
-                      {s.message && <p style={{ fontSize: "13px", color: "#6b7280", marginTop: "6px", lineHeight: 1.5 }}>{s.message}</p>}
-                    </div>
-                  ))}
-                </div>
-              )}
+            <div style={{ maxWidth: "560px" }}>
+              <h2 style={{ fontSize: "20px", fontWeight: 700, color: "#1a1a1a", marginBottom: "24px" }}>Заявки</h2>
+              <div style={{ background: "#fff", borderRadius: "16px", padding: "28px", boxShadow: "0 1px 8px rgba(0,0,0,0.06)" }}>
+                <p style={{ fontSize: "14px", color: "#6b7280", lineHeight: 1.6, marginBottom: "18px" }}>
+                  Заявки с формы ведутся в Google Таблице. В админке они не отображаются, чтобы не хранить и не дублировать клиентские данные на сайте.
+                </p>
+                {settings.submissionsSheetUrl ? (
+                  <a href={settings.submissionsSheetUrl} target="_blank" rel="noreferrer" style={{ ...ABtnPrimary, textDecoration: "none", padding: "12px 22px" }}>
+                    Открыть Google Таблицу
+                  </a>
+                ) : (
+                  <div style={{ border: "1px solid #fee2e2", background: "#fff7f7", borderRadius: "12px", padding: "14px", color: "#991b1b", fontSize: "13px", lineHeight: 1.5 }}>
+                    Ссылка на таблицу не указана. Добавьте ее во вкладке «Настройки» в поле «Google Таблица заявок».
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
